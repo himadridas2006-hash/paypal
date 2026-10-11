@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#faf8ff">
+  <meta name="description" content="A responsive demo console for scoped agent mandates, payment approvals, FairShare, and the supplied business workflows.">
+  <title>Mandate — Agent Finance Console</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/data.js" defer></script>
+  <script src="/api-client.js" defer></script>
+  <script src="/app.js" defer></script>
+  <script src="/interactions.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#workspace">Skip to workspace</a>
+  <header class="topbar">
+    <button class="mobile-menu-button icon-button" id="mobile-menu-button" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
+    <button class="sidebar-toggle-btn icon-button" id="sidebar-toggle-btn" type="button" aria-label="Toggle side menu" title="Hide/Show side menu">
+      <span class="toggle-arrow" aria-hidden="true">◀</span>
+    </button>
+    <a class="brand" href="#overview" data-route="overview" aria-label="Mandate overview">
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M20 3.5 34 9v9.8c0 9-5.8 14.6-14 17.7C11.8 33.4 6 27.8 6 18.8V9L20 3.5Z"/><path d="m13.7 20.1 4.2 4.2 8.7-9"/></svg></span>
+      <span class="brand-copy"><strong>Mandate</strong><small>Agent finance console</small></span>
+    </a>
+    <div class="topbar-right">
+      <a href="/backend" class="btn btn-secondary btn-sm" style="font-size:11px; font-weight:700; text-decoration:none" title="Open Backend & API Developer Console">&gt;_ Backend API</a>
+      <span class="sandbox-badge" id="server-status-badge"><span class="status-dot"></span>SANDBOX READY</span>
+      <div class="theme-switcher-group" id="topbar-theme-switcher" role="group" aria-label="Theme selector">
+        <button type="button" class="theme-btn active" data-theme-choice="light" title="Light mode" aria-label="Light mode">☼</button>
+        <button type="button" class="theme-btn" data-theme-choice="dark" title="Dark mode" aria-label="Dark mode">☾</button>
+        <button type="button" class="theme-btn" data-theme-choice="forest" title="Forest mode" aria-label="Forest mode">🌲</button>
+      </div>
+      <div class="vault-chip"><span>Vault</span><strong>$142,580.00</strong></div>
+      <button class="avatar-button" type="button" aria-label="Account menu">MO</button>
+    </div>
+  </header>
+
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Primary navigation">
+      <div class="workspace-switcher">
+        <span class="workspace-glyph">N</span>
+        <span><strong>Northstar Studio</strong><small>Sandbox workspace</small></span>
+        <button class="sidebar-arrow-btn" id="sidebar-arrow-btn" type="button" aria-label="Hide side menu" title="Hide side menu">◀</button>
+      </div>
+      <div class="nav-label">CONTROL ROOM</div>
+      <nav class="side-nav" id="side-nav">
+        <button class="nav-link" data-route="overview" type="button"><span class="nav-icon">◫</span><span>Command center</span></button>
+        <button class="nav-link" data-route="mandates" type="button"><span class="nav-icon">⬡</span><span>Spend mandates</span><span class="nav-count">0</span></button>
+        <button class="nav-link" data-route="approvals" type="button"><span class="nav-icon">✓</span><span>Approvals queue</span><span class="nav-count attention" style="display:none">0</span></button>
+        <button class="nav-link" data-route="fairshare" type="button"><span class="nav-icon">⇄</span><span>FairShare</span></button>
+      </nav>
+      <div class="nav-label nav-label-spaced">AGENT WORKFLOWS</div>
+      <nav class="side-nav" id="workflow-nav">
+        <button class="nav-link" data-route="disputes" type="button"><span class="nav-icon">↗</span><span>Dispute resolver</span></button>
+        <button class="nav-link" data-route="procurement" type="button"><span class="nav-icon">▤</span><span>Procurement</span></button>
+        <button class="nav-link" data-route="cfo" type="button"><span class="nav-icon">◌</span><span>Freelancer CFO</span></button>
+      </nav>
+      <div class="nav-label nav-label-spaced">FROM YOUR NOTES</div>
+      <nav class="side-nav" id="notes-nav">
+        <button class="nav-link" data-route="inventory" type="button"><span class="nav-icon">▦</span><span>Inventory agent</span></button>
+        <button class="nav-link" data-route="triage" type="button"><span class="nav-icon">＋</span><span>Triage &amp; billing</span></button>
+        <button class="nav-link" data-route="escrow" type="button"><span class="nav-icon">◇</span><span>Developer escrow</span></button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="appearance-control">
+          <span class="appearance-label">THEME</span>
+          <div class="theme-segmented" role="group" aria-label="Theme switcher">
+            <button type="button" class="theme-segment active" data-theme-choice="light"><span>☼</span> Light</button>
+            <button type="button" class="theme-segment" data-theme-choice="dark"><span>☾</span> Dark</button>
+            <button type="button" class="theme-segment" data-theme-choice="forest"><span>🌲</span> Forest</button>
+          </div>
+        </div>
+        <div class="guardrail-mini"><span class="guardrail-mini-icon">✓</span><div><strong>Guardrails active</strong><small>Policy layer · PayPal sandbox</small></div><span class="mini-pulse"></span></div>
+        <button class="reset-button" id="reset-demo" type="button" title="Clear all mandates and payments to a clean slate">↺ <span>Clear all data</span></button>
+        <button class="reset-button" id="seed-demo" type="button" style="color:var(--muted); font-size:10px" title="Load sample demo presets if needed">＋ <span>Load demo presets</span></button>
+      </div>
+    </aside>
+
+    <main class="workspace" id="workspace" tabindex="-1">
+      <div id="app" aria-live="polite"></div>
+      <footer class="app-footer"><span>Mandate · Agent finance console</span><span>All activity shown is simulated. No payment, invoice, or payout is sent.</span></footer>
+    </main>
+  </div>
+
+  <nav class="mobile-nav" aria-label="Mobile navigation">
+    <button data-route="overview" type="button"><span>◫</span><small>Home</small></button>
+    <button data-route="mandates" type="button"><span>⬡</span><small>Mandates</small></button>
+    <button data-route="approvals" type="button"><span>✓</span><small>Approvals</small></button>
+    <button data-route="fairshare" type="button"><span>⇄</span><small>FairShare</small></button>
+    <button id="mobile-more" type="button" aria-expanded="false"><span>•••</span><small>More</small></button>
+  </nav>
+  <div class="mobile-more-panel" id="mobile-more-panel" hidden></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div id="modal-root"></div>
+</body>
+</html>

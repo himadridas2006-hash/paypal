@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mandate — Backend & API Developer Console</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Hanken+Grotesk:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090d16;
+      --surface: #111726;
+      --surface-low: #151d30;
+      --surface-mid: #1c273e;
+      --border: #222d42;
+      --border-soft: #182236;
+      --text: #f1f5fd;
+      --muted: #8b99b2;
+      --blue: #3b82f6;
+      --green: #10b981;
+      --amber: #f59e0b;
+      --red: #ef4444;
+      --code-bg: #0b0f19;
+      font-family: 'Hanken Grotesk', system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      height: 68px;
+      padding: 0 24px;
+      background: rgba(17, 23, 38, 0.95);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+    }
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+    }
+    .brand-badge {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: rgba(59, 130, 246, 0.2);
+      color: var(--blue);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-family: 'Manrope', sans-serif;
+    }
+    .brand-title strong {
+      font-family: 'Manrope', sans-serif;
+      font-size: 15px;
+      display: block;
+    }
+    .brand-title small {
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: .02em;
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--green);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .4; } }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all .15s ease;
+    }
+    .btn-primary {
+      background: var(--blue);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: #2563eb;
+    }
+    .btn-secondary {
+      background: var(--surface-low);
+      color: var(--text);
+      border-color: var(--border);
+    }
+    .btn-secondary:hover {
+      background: var(--surface-mid);
+    }
+    .btn-paypal {
+      background: #ffc439;
+      color: #111;
+      border-color: #e2aa27;
+      font-weight: 800;
+    }
+    .btn-paypal:hover {
+      background: #f4b82d;
+    }
+    main {
+      flex: 1;
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 24px;
+      display: grid;
+      gap: 20px;
+    }
+    .vitals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+    }
+    .vital-title {
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .vital-value {
+      font-family: 'Manrope', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .vital-desc {
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 4px;
+    }
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .section-title h2 {
+      font-family: 'Manrope', sans-serif;
+      font-size: 16px;
+      letter-spacing: -.02em;
+    }
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 960px) {
+      .two-col { grid-template-columns: 1fr; }
+    }
+    .endpoint-list {
+      display: grid;
+      gap: 8px;
+    }
+    .endpoint-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 12px;
+      background: var(--surface-low);
+      border: 1px solid var(--border-soft);
+      border-radius: 10px;
+    }
+    .endpoint-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+    .method-tag {
+      padding: 3px 6px;
+      border-radius: 5px;
+      font-family: 'Fira Code', monospace;
+      font-size: 10px;
+      font-weight: 700;
+    }
+    .method-get { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
+    .method-post { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+    .method-patch { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+    .endpoint-path {
+      font-family: 'Fira Code', monospace;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .endpoint-desc {
+      color: var(--muted);
+      font-size: 11px;
+    }
+    .console-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .console-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .console-box {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      font-family: 'Fira Code', monospace;
+      font-size: 11px;
+      color: #93c5fd;
+      min-height: 260px;
+      max-height: 480px;
+      overflow: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+    .table-wrap {
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    th {
+      text-align: left;
+      padding: 8px 10px;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+    td {
+      padding: 10px;
+      border-bottom: 1px solid var(--border-soft);
+      vertical-align: middle;
+    }
+    .form-inline {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .form-inline input {
+      flex: 1;
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 7px 10px;
+      color: #fff;
+      font-size: 12px;
+      font-family: 'Fira Code', monospace;
+    }
+    .chip {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+    .chip-green { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+    .chip-amber { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+    .chip-red { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/backend" class="brand-wrap">
+      <div class="brand-badge">&gt;_</div>
+      <div class="brand-title">
+        <strong>Mandate Server &amp; API Console</strong>
+        <small>Node.js Express 5 · PayPal Server SDK · Live Runtime</small>
+      </div>
+    </a>
+    <div class="header-actions">
+      <span class="status-pill" id="live-badge"><span class="status-dot"></span>SERVER RUNNING</span>
+      <a href="/" class="btn btn-secondary">← Open Web App GUI</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Server Vitals -->
+    <section class="vitals-grid">
+      <div class="card">
+        <div class="vital-title">HTTP Port &amp; Host</div>
+        <div class="vital-value" id="vital-host">localhost:3000</div>
+        <div class="vital-desc">Listening &amp; Serving SPA</div>
+      </div>
+      <div class="card">
+        <div class="vital-title">PayPal SDK Status</div>
+        <div class="vital-value" id="vital-paypal" style="color:var(--amber)">Sandbox Simulated</div>
+        <div class="vital-desc" id="vital-paypal-desc">Instant sandbox order tokens</div>
+      </div>
+      <div class="card">
+        <div class="vital-title">Active Guardrails</div>
+        <div class="vital-value" style="color:var(--green)">Online · Enforcing</div>
+        <div class="vital-desc">Merchant, Cap, Budget &amp; Expiry</div>
+      </div>
+      <div class="card">
+        <div class="vital-title">In-Memory Mandates</div>
+        <div class="vital-value" id="vital-mandates">3 Active</div>
+        <div class="vital-desc">SaaS, Marketing, Facilities</div>
+      </div>
+      <div class="card">
+        <div class="vital-title">Server Uptime</div>
+        <div class="vital-value" id="vital-uptime">0m 00s</div>
+        <div class="vital-desc">Node.js Engine v22</div>
+      </div>
+    </section>
+
+    <!-- Interactive API Playground & JSON Output -->
+    <div class="two-col">
+      <section class="card">
+        <div class="section-title">
+          <h2>REST Endpoints &amp; Quick Tester</h2>
+          <button class="btn btn-secondary" onclick="resetState()">↺ Reset Server Store</button>
+        </div>
+        <div class="endpoint-list">
+          <div class="endpoint-item">
+            <div class="endpoint-meta">
+              <span class="method-tag method-get">GET</span>
+              <div>
+                <div class="endpoint-path">/api/health</div>
+                <div class="endpoint-desc">Backend health &amp; PayPal credentials check</div>
+              </div>
+            </div>
+            <button class="btn btn-secondary" onclick="fetchApi('/api/health')">Execute</button>
+          </div>
+
+          <div class="endpoint-item">
+            <div class="endpoint-meta">
+              <span class="method-tag method-get">GET</span>
+              <div>
+                <div class="endpoint-path">/api/dashboard</div>
+                <div class="endpoint-desc">Calculated budget totals, committed pool &amp; velocity</div>
+              </div>
+            </div>
+            <button class="btn btn-secondary" onclick="fetchApi('/api/dashboard')">Execute</button>
+          </div>
+
+          <div class="endpoint-item">
+            <div class="endpoint-meta">
+              <span class="method-tag method-get">GET</span>
+              <div>
+                <div class="endpoint-path">/api/mandates</div>
+                <div class="endpoint-desc">Live agent spend mandates &amp; utilization</div>
+              </div>
+            </div>
+            <button class="btn btn-secondary" onclick="fetchApi('/api/mandates')">Execute</button>
+          </div>
+
+          <div class="endpoint-item">
+            <div class="endpoint-meta">
+              <span class="method-tag method-get">GET</span>
+              <div>
+                <div class="endpoint-path">/api/approvals</div>
+                <div class="endpoint-desc">Human-in-the-loop approvals queue</div>
+              </div>
+            </div>
+            <button class="btn btn-secondary" onclick="fetchApi('/api/approvals')">Execute</button>
+          </div>
+
+          <div class="endpoint-item">
+            <div class="endpoint-meta">
+              <span class="method-tag method-get">GET</span>
+              <div>
+                <div class="endpoint-path">/api/audit</div>
+                <div class="endpoint-desc">Tamper-evident policy decision log</div>
+              </div>
+            </div>
+            <button class="btn btn-secondary" onclick="fetchApi('/api/audit')">Execute</button>
+          </div>
+
+          <div class="endpoint-item" style="flex-direction:column; align-items:stretch">
+            <div style="display:flex; justify-content:space-between; align-items:center">
+              <div class="endpoint-meta">
+                <span class="method-tag method-post">POST</span>
+                <div>
+                  <div class="endpoint-path">/api/paypal/create-order</div>
+                  <div class="endpoint-desc">Test PayPal sandbox order creation with guardrail evaluation</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-inline">
+              <input type="text" id="order-merchant" value="RunPod GPU Cloud" placeholder="Merchant name">
+              <input type="number" id="order-amount" value="450.00" placeholder="Amount (USD)">
+              <button class="btn btn-paypal" onclick="triggerTestOrder()">Create Sandbox Order</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Live JSON Response Console -->
+      <section class="card console-panel">
+        <div class="console-head">
+          <div class="vital-title">LIVE JSON RESPONSE CONSOLE</div>
+          <span style="font-size:11px; color:var(--muted)" id="response-status">Status: 200 OK</span>
+        </div>
+        <div class="console-box" id="json-viewer">// Click any "Execute" button or create a test PayPal order to inspect live JSON payload...</div>
+      </section>
+    </div>
+
+    <!-- Live In-Memory Data Store Viewer -->
+    <section class="card">
+      <div class="section-title">
+        <h2>Live Server In-Memory Mandates</h2>
+        <span class="chip chip-green">Synchronized</span>
+      </div>
+      <div class="table-wrap">
+        <table id="mandates-table">
+          <thead>
+            <tr>
+              <th>Mandate ID</th>
+              <th>Agent &amp; Purpose</th>
+              <th>Spent / Limit</th>
+              <th>Tx Cap</th>
+              <th>Review Above</th>
+              <th>Authorized Merchants</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td colspan="7" style="color:var(--muted); text-align:center">Loading server data...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Recent Audit Log Table -->
+    <section class="card">
+      <div class="section-title">
+        <h2>Server Policy Audit Trail</h2>
+        <button class="btn btn-secondary" onclick="refreshAudit()">Refresh Log</button>
+      </div>
+      <div class="table-wrap">
+        <table id="audit-table">
+          <thead>
+            <tr>
+              <th>Timestamp</th>
+              <th>Action</th>
+              <th>Decision</th>
+              <th>Reason &amp; Policy Rule</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td colspan="4" style="color:var(--muted); text-align:center">No transactions logged yet.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const startTime = Date.now();
+    setInterval(() => {
+      const sec = Math.floor((Date.now() - startTime) / 1000);
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      document.getElementById('vital-uptime').textContent = `${m}m ${s < 10 ? '0' : ''}${s}s`;
+    }, 1000);
+
+    async function fetchApi(path, options = {}) {
+      const viewer = document.getElementById('json-viewer');
+      const statusEl = document.getElementById('response-status');
+      viewer.textContent = 'Executing ' + path + '...';
+      try {
+        const res = await fetch(path, options);
+        const data = await res.json();
+        statusEl.textContent = `Status: ${res.status} ${res.statusText}`;
+        statusEl.style.color = res.ok ? 'var(--green)' : 'var(--red)';
+        viewer.textContent = JSON.stringify(data, null, 2);
+        return data;
+      } catch (err) {
+        statusEl.textContent = 'Network Error';
+        statusEl.style.color = 'var(--red)';
+        viewer.textContent = '// Error: ' + err.message;
+      }
+    }
+
+    async function triggerTestOrder() {
+      const merchant = document.getElementById('order-merchant').value || 'Test Merchant';
+      const amount = Number(document.getElementById('order-amount').value) || 100;
+      await fetchApi('/api/paypal/create-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount,
+          currency: 'USD',
+          merchant,
+          description: `Backend console test order for ${merchant}`
+        })
+      });
+      loadServerData();
+    }
+
+    async function resetState() {
+      await fetchApi('/api/reset', { method: 'POST' });
+      loadServerData();
+    }
+
+    async function loadServerData() {
+      try {
+        // Health
+        const health = await fetch('/api/health').then(r => r.json());
+        if (health.paypalConnected) {
+          document.getElementById('vital-paypal').textContent = 'Sandbox Live';
+          document.getElementById('vital-paypal').style.color = 'var(--green)';
+          document.getElementById('vital-paypal-desc').textContent = 'PayPal credentials loaded';
+        }
+
+        // Mandates
+        const mandates = await fetch('/api/mandates').then(r => r.json());
+        document.getElementById('vital-mandates').textContent = `${mandates.length} Active`;
+        const tbody = document.querySelector('#mandates-table tbody');
+        if (!mandates || !mandates.length) {
+          tbody.innerHTML = '<tr><td colspan="7" style="color:var(--muted); text-align:center; padding:24px">No mandates configured on server yet. Create a mandate in the app or via POST /api/mandates.</td></tr>';
+        } else {
+          tbody.innerHTML = mandates.map(m => `
+            <tr>
+              <td><code>${m.id}</code></td>
+              <td><strong>${m.name}</strong><br><small style="color:var(--muted)">${m.description}</small></td>
+              <td><strong>$${m.spent.toLocaleString()}</strong> / $${m.limit.toLocaleString()}</td>
+              <td>$${m.perTransaction}</td>
+              <td>${m.humanApprovalAbove ? '$' + m.humanApprovalAbove : 'None'}</td>
+              <td>${m.merchants.map(item => `<span class="chip chip-green" style="margin:1px">${item}</span>`).join(' ')}</td>
+              <td><span class="chip ${m.status === 'active' ? 'chip-green' : 'chip-amber'}">${m.status}</span></td>
+            </tr>
+          `).join('');
+        }
+
+        // Audit
+        refreshAudit();
+      } catch (err) {
+        console.warn('Failed to load server data:', err);
+      }
+    }
+
+    async function refreshAudit() {
+      try {
+        const audit = await fetch('/api/audit').then(r => r.json());
+        const tbody = document.querySelector('#audit-table tbody');
+        if (!audit.entries || !audit.entries.length) {
+          tbody.innerHTML = '<tr><td colspan="4" style="color:var(--muted); text-align:center">No transactions logged yet. Run a payment or test order above.</td></tr>';
+          return;
+        }
+        tbody.innerHTML = audit.entries.map(e => `
+          <tr>
+            <td style="color:var(--muted); font-size:11px">${new Date(e.timestamp).toLocaleTimeString()}</td>
+            <td><code>${e.action}</code></td>
+            <td><span class="chip ${e.decision === 'approved' ? 'chip-green' : e.decision === 'blocked' ? 'chip-red' : 'chip-amber'}">${e.decision}</span></td>
+            <td>${e.reason}</td>
+          </tr>
+        `).join('');
+      } catch (err) {
+        console.warn('Failed to refresh audit:', err);
+      }
+    }
+
+    // Initial load
+    loadServerData();
+    fetchApi('/api/health');
+  </script>
+</body>
+</html>
