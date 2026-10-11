@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;family=Manrope:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface": "#faf8ff", "on-secondary": "#ffffff", "tertiary": "#006947", "secondary": "#4b41e1", "on-secondary-container": "#fffbff", "primary-container": "#2170e4", "on-primary-container": "#fefcff", "on-surface-variant": "#424754", "error": "#ba1a1a", "secondary-fixed-dim": "#c3c0ff", "tertiary-fixed-dim": "#4edea3", "outline": "#727785", "on-secondary-fixed-variant": "#3323cc", "inverse-surface": "#283044", "secondary-fixed": "#e2dfff", "tertiary-fixed": "#6ffbbe", "on-surface": "#131b2e", "on-primary-fixed-variant": "#004395", "surface-container-highest": "#dae2fd", "inverse-on-surface": "#eef0ff", "error-container": "#ffdad6", "surface-bright": "#faf8ff", "tertiary-container": "#00855b", "on-error-container": "#93000a", "on-background": "#131b2e", "surface-container-lowest": "#ffffff", "primary-fixed-dim": "#adc6ff", "surface-variant": "#dae2fd", "surface-dim": "#d2d9f4", "primary-fixed": "#d8e2ff", "surface-container": "#eaedff", "on-tertiary-fixed-variant": "#005236", "secondary-container": "#645efb", "on-secondary-fixed": "#0f0069", "surface-tint": "#005ac2", "background": "#faf8ff", "on-tertiary-container": "#f5fff6", "inverse-primary": "#adc6ff", "outline-variant": "#c2c6d6", "on-tertiary-fixed": "#002113", "on-tertiary": "#ffffff", "on-error": "#ffffff", "surface-container-low": "#f2f3ff", "on-primary-fixed": "#001a42", "primary": "#0058be", "on-primary": "#ffffff", "surface-container-high": "#e2e7ff" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-sm": "0.5rem", "margin": "2rem", "margin-mobile": "1rem", "space-lg": "1.5rem", "space-xs": "0.25rem", "gutter-mobile": "1rem", "space-xl": "2rem", "space-md": "1rem", "gutter": "1.5rem" }, fontFamily: { "body-md": ["Hanken Grotesk"], "numeric-md": ["Hanken Grotesk"], "headline-lg": ["Manrope"], "headline-xl": ["Manrope"], "headline-md": ["Manrope"], "headline-xl-mobile": ["Manrope"], "label-sm": ["Hanken Grotesk"], "label-md": ["Hanken Grotesk"], "body-sm": ["Hanken Grotesk"], "body-lg": ["Hanken Grotesk"], "numeric-lg": ["Hanken Grotesk"], "display-lg": ["Manrope"] }, fontSize: { "body-md": ["0.9375rem", { "lineHeight": "1.5rem", "fontWeight": "400" }], "numeric-md": ["1.25rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "600" }], "headline-lg": ["1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.015em", "fontWeight": "600" }], "headline-xl": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.02em", "fontWeight": "700" }], "headline-md": ["1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.01em", "fontWeight": "600" }], "headline-xl-mobile": ["1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.015em", "fontWeight": "700" }], "label-sm": ["0.75rem", { "lineHeight": "1rem", "letterSpacing": "0.04em", "fontWeight": "600" }], "label-md": ["0.875rem", { "lineHeight": "1.25rem", "fontWeight": "500" }], "body-sm": ["0.8125rem", { "lineHeight": "1.25rem", "fontWeight": "400" }], "body-lg": ["1.125rem", { "lineHeight": "1.75rem", "fontWeight": "400" }], "numeric-lg": ["2rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "700" }], "display-lg": ["3.5rem", { "lineHeight": "4rem", "letterSpacing": "-0.025em", "fontWeight": "700" }] } } } };</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.03)]"><div class="h-16 px-gutter-mobile flex items-center justify-between gap-space-xs"><div class="flex items-center gap-space-sm"><img alt="Mandate Brand Mark" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCL2FjwHpdnPT9QH7sKJs9ayHjgVsBT9l8jBbFmHEy-l_EgN0V5M58QGghA10N5-IN6vYBn0YURW719IH2B0fkIABxSaBCmvZHXbZqZ9vJ4bo8X3zMkN_FJeZxscT1KcJQIeB0AU2vLur_YoK9M9KS_Nh2syAqObFyJnu6Vx-GYMA9-QuuadOdIG5reDOmUUh2XcRXUQZWKnC6X8uxWcPZSbkbyckVz69TMD7wmKljU04NaC5yUv8ZT"/><div class="flex flex-col"><span class="font-headline-md text-body-sm font-semibold tracking-tight text-on-surface leading-tight">Mandate</span><span class="font-label-sm text-label-sm text-on-surface-variant leading-none">Command Center</span></div></div><div class="flex items-center gap-space-xs"><div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-50 text-amber-800 shadow-[0_1px_4px_rgba(245,158,11,0.12)]"><span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span><span class="font-label-sm text-[10px] tracking-wider uppercase font-bold">Sandbox</span><label class="relative inline-flex items-center cursor-pointer ml-0.5"><input checked="" class="sr-only peer" type="checkbox"/><span class="w-5 h-3 bg-amber-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-2 peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-amber-300 after:border after:rounded-full after:h-2 after:w-2 after:transition-all peer-checked:bg-amber-500"></span></label></div><div class="hidden sm:flex flex-col items-end px-2 py-0.5 rounded-lg bg-surface-container-low"><span class="font-label-sm text-[10px] text-on-surface-variant uppercase tracking-wider">Vault</span><span class="font-numeric-md text-body-sm text-primary font-bold tabular-nums">$142,580.00</span></div><button aria-label="Profile" class="w-11 h-11 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors" type="button"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJBVlSQ2JwGX2gZQ5GQVsu6kkAr1bCimuo7jACoC9U0nui9aWgfuICynvMLVSfNYutoeLU5WLUg8Qr7vaG8CoY5YZtu6H0DXBpLU9qPRIMapgk6yvY0tGE4N1ZQlG3j7UQYzkMu8jSQJoMkwQZDUBmjWyD9Wl6zSJxaBUFEQnzSoAz4OJMd00EGwtymhUffsIAT5qV6HUWHgkztRA4KhncSEmywlEvUxbAL7fpBPZ6wyDvzqSGA9GX"/></button></div></div></header><main class="flex-1 w-full bg-surface pt-16 pb-24"><div class="flex flex-col w-full">
+<div class="px-gutter-mobile pt-space-md space-y-space-lg">
+<!-- Top Fiduciary Assurance & Operational Health Pill -->
+<div class="bg-surface-container-low rounded-xl p-space-md shadow-sm relative overflow-hidden">
+<div class="flex items-center justify-between gap-space-sm mb-space-sm">
+<div class="flex items-center gap-space-xs">
+<div class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></div>
+<span class="font-label-sm text-label-sm text-tertiary uppercase tracking-wider font-semibold">Autonomous Guardrails Active</span>
+</div>
+<div class="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px] text-primary">verified_user</span>
+<span class="font-label-sm text-[11px] font-medium">PayPal Settlement Rail</span>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Daily Vault Limit Velocity</span>
+<span class="font-numeric-lg text-numeric-lg text-on-surface font-bold tracking-tight">$10,720.00 <span class="font-body-md text-body-md font-normal text-on-surface-variant">committed</span></span>
+</div>
+<button class="px-3.5 py-1.5 bg-primary text-on-primary rounded-lg font-label-md text-label-md font-semibold flex items-center gap-1 shadow-sm active:scale-95 transition-all" id="toggle-agent">
+<span class="material-symbols-outlined text-[16px]">smart_toy</span>
+<span>Agent Online</span>
+</button>
+</div>
+</div>
+<!-- 1. Top Summary Metrics Cards (2x2 Grid, 16px rounded) -->
+<div class="grid grid-cols-2 gap-space-sm">
+<!-- Card 1: Budget Remaining -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col justify-between relative overflow-hidden">
+<div class="flex items-start justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Budget Left</span>
+<div class="w-7 h-7 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[16px]">account_balance_wallet</span>
+</div>
+</div>
+<div class="my-space-xs">
+<span class="font-numeric-md text-numeric-md text-on-surface font-bold tabular-nums block">$14,280</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">of $25,000 pool</span>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden mt-space-xs">
+<div class="bg-primary h-full rounded-full transition-all duration-500" style="width: 57.1%"></div>
+</div>
+</div>
+<!-- Card 2: Payments Today -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Today's Rails</span>
+<div class="w-7 h-7 rounded-lg bg-surface-container-high flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[16px]">bolt</span>
+</div>
+</div>
+<div class="my-space-xs">
+<div class="flex items-baseline gap-1">
+<span class="font-numeric-md text-numeric-md text-on-surface font-bold tabular-nums">18</span>
+<span class="font-label-sm text-label-sm text-tertiary font-semibold flex items-center"><span class="material-symbols-outlined text-[12px]">trending_up</span>+4</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant truncate block">$2,410.50 via PayPal</span>
+</div>
+<span class="font-label-sm text-[10px] text-tertiary-container font-semibold uppercase tracking-wider bg-surface-container-low px-1.5 py-0.5 rounded w-fit">Auto-Cleared</span>
+</div>
+<!-- Card 3: Blocked by Guardrails -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Guardrails</span>
+<div class="w-7 h-7 rounded-lg bg-error-container flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-[16px]">shield_lock</span>
+</div>
+</div>
+<div class="my-space-xs">
+<div class="flex items-baseline gap-1.5">
+<span class="font-numeric-md text-numeric-md text-error font-bold tabular-nums">4</span>
+<span class="font-label-sm text-[11px] text-error font-semibold bg-error-container/60 px-1.5 py-0.2 rounded-full">Blocked</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant truncate block">$1,850 protected</span>
+</div>
+<span class="font-label-sm text-[10px] text-on-surface-variant font-medium">Policy violation</span>
+</div>
+<!-- Card 4: Awaiting Approval -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Pending</span>
+<div class="w-7 h-7 rounded-lg bg-amber-100 flex items-center justify-center text-amber-800">
+<span class="material-symbols-outlined text-[16px]">notification_important</span>
+</div>
+</div>
+<div class="my-space-xs">
+<div class="flex items-baseline gap-1.5">
+<span class="font-numeric-md text-numeric-md text-amber-900 font-bold tabular-nums">3</span>
+<span class="font-label-sm text-[11px] text-amber-900 font-bold bg-amber-100 px-1.5 py-0.2 rounded-full">Review</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant truncate block">Human nod required</span>
+</div>
+<span class="font-label-sm text-[10px] text-amber-800 font-semibold uppercase tracking-wider">Tx Cap Exceeded</span>
+</div>
+</div>
+<!-- Automated PayPal Engine Strip -->
+<div class="bg-gradient-to-r from-surface-container-lowest to-surface-container-low p-space-md rounded-xl shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">sync_alt</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-headline-md text-body-sm font-bold text-on-surface">Auto-Settlement Pipeline</span>
+<span class="px-1.5 py-0.2 rounded-full bg-surface-container-highest text-primary font-label-sm text-[9px] font-bold">LIVE</span>
+</div>
+<span class="font-body-sm text-[11px] text-on-surface-variant">Instant batch execution via verified merchant tokens</span>
+</div>
+</div>
+<div class="flex items-center">
+<span class="font-label-sm text-[10px] text-tertiary font-bold tracking-tight px-2 py-1 rounded-full bg-surface-container-highest">0.24s LATENCY</span>
+</div>
+</div>
+<!-- 2. Quick Action Cards (4 Cards Grid, 16px rounded) -->
+<div class="space-y-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-headline-md text-body-md font-bold text-on-surface">Autonomous Financial Modules</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold">Config &gt;</span>
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<!-- Module 1: FairShare -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow active:scale-[0.99] flex flex-col justify-between">
+<div class="w-9 h-9 rounded-lg bg-secondary-fixed flex items-center justify-center text-secondary mb-space-sm">
+<span class="material-symbols-outlined text-[20px]">group_work</span>
+</div>
+<div>
+<span class="font-headline-md text-body-sm font-bold text-on-surface block mb-0.5">FairShare</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant leading-snug line-clamp-2">AI group bill split &amp; auto PayPal request dispatch</span>
+</div>
+<div class="mt-space-sm pt-space-xs flex items-center justify-between text-secondary">
+<span class="font-label-sm text-[11px] font-semibold">Active Engine</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</div>
+</div>
+<!-- Module 2: Dispute Resolver -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow active:scale-[0.99] flex flex-col justify-between">
+<div class="w-9 h-9 rounded-lg bg-tertiary-fixed flex items-center justify-center text-tertiary mb-space-sm">
+<span class="material-symbols-outlined text-[20px]">gavel</span>
+</div>
+<div>
+<span class="font-headline-md text-body-sm font-bold text-on-surface block mb-0.5">Dispute Resolver</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant leading-snug line-clamp-2">1 active case: 88% estimated recovery win rate</span>
+</div>
+<div class="mt-space-sm pt-space-xs flex items-center justify-between text-tertiary">
+<span class="font-label-sm text-[11px] font-semibold">Case In Flight</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</div>
+</div>
+<!-- Module 3: Procurement -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow active:scale-[0.99] flex flex-col justify-between">
+<div class="w-9 h-9 rounded-lg bg-primary-fixed flex items-center justify-center text-primary mb-space-sm">
+<span class="material-symbols-outlined text-[20px]">inventory_2</span>
+</div>
+<div>
+<span class="font-headline-md text-body-sm font-bold text-on-surface block mb-0.5">Procurement</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant leading-snug line-clamp-2">Autonomous PO matching &amp; contract anomaly scan</span>
+</div>
+<div class="mt-space-sm pt-space-xs flex items-center justify-between text-primary">
+<span class="font-label-sm text-[11px] font-semibold">Scanning POs</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</div>
+</div>
+<!-- Module 4: Freelancer CFO -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow active:scale-[0.99] flex flex-col justify-between">
+<div class="w-9 h-9 rounded-lg bg-surface-container-highest flex items-center justify-center text-on-surface mb-space-sm">
+<span class="material-symbols-outlined text-[20px]">finance_mode</span>
+</div>
+<div>
+<span class="font-headline-md text-body-sm font-bold text-on-surface block mb-0.5">Freelancer CFO</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant leading-snug line-clamp-2">Automated receivables follow-up &amp; liquidity forecasting</span>
+</div>
+<div class="mt-space-sm pt-space-xs flex items-center justify-between text-on-surface">
+<span class="font-label-sm text-[11px] font-semibold">Optimized</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</div>
+</div>
+</div>
+</div>
+<!-- 3. Live Agent Activity Feed -->
+<div class="space-y-space-sm">
+<!-- Feed Header -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<div class="relative flex items-center justify-center w-3 h-3">
+<span class="absolute inline-flex h-full w-full rounded-full bg-tertiary opacity-75 animate-ping"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-tertiary"></span>
+</div>
+<span class="font-headline-md text-body-md font-bold text-on-surface">Live Agent Stream</span>
+</div>
+<span class="font-label-sm text-[10px] text-on-surface-variant uppercase tracking-wider font-medium">Real-Time Ledger</span>
+</div>
+<!-- Filter Chips -->
+<div class="flex items-center gap-1.5 overflow-x-auto pb-1" id="filter-container">
+<button class="filter-chip px-3 py-1 rounded-full bg-primary text-on-primary font-label-sm text-[11px] font-semibold whitespace-nowrap shadow-sm" data-filter="all">All Events</button>
+<button class="filter-chip px-3 py-1 rounded-full bg-surface-container-lowest text-on-surface-variant font-label-sm text-[11px] font-medium whitespace-nowrap" data-filter="approved">Approved</button>
+<button class="filter-chip px-3 py-1 rounded-full bg-surface-container-lowest text-on-surface-variant font-label-sm text-[11px] font-medium whitespace-nowrap" data-filter="blocked">Blocked</button>
+<button class="filter-chip px-3 py-1 rounded-full bg-surface-container-lowest text-on-surface-variant font-label-sm text-[11px] font-medium whitespace-nowrap" data-filter="review">Needs Review</button>
+</div>
+<!-- Activity Items List -->
+<div class="space-y-space-xs" id="activity-list">
+<!-- Item 1: Cloud Infra -->
+<div class="activity-card bg-surface-container-lowest rounded-xl p-space-md shadow-sm transition-all flex flex-col gap-space-xs" data-status="approved">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-surface-container-low flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined text-[22px]">dns</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-md text-body-sm font-bold text-on-surface truncate">Cloud Infrastructure Scale</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">Amazon Web Services · 2m ago</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-numeric-md text-body-md font-bold text-on-surface tabular-nums">-$420.00</span>
+<span class="font-label-sm text-[10px] text-tertiary font-medium">via PayPal</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1 mt-1">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container-low text-tertiary font-label-sm text-[10px] font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+              Approved (Auto) · Safe Zone
+            </span>
+<span class="font-label-sm text-[10px] text-on-surface-variant font-medium">Agent: OpsBot v2</span>
+</div>
+</div>
+<!-- Item 2: Design Asset -->
+<div class="activity-card bg-surface-container-lowest rounded-xl p-space-md shadow-sm transition-all flex flex-col gap-space-xs" data-status="approved">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-surface-container-low flex items-center justify-center text-secondary flex-shrink-0">
+<span class="material-symbols-outlined text-[22px]">brush</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-md text-body-sm font-bold text-on-surface truncate">Design Asset Bulk Purchase</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">Freepik Unlimited · 18m ago</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-numeric-md text-body-md font-bold text-on-surface tabular-nums">-$89.00</span>
+<span class="font-label-sm text-[10px] text-tertiary font-medium">via PayPal</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1 mt-1">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container-low text-tertiary font-label-sm text-[10px] font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+              Approved (Auto) · Under Micro-Cap
+            </span>
+<span class="font-label-sm text-[10px] text-on-surface-variant font-medium">Agent: StudioSpend</span>
+</div>
+</div>
+<!-- Item 3: Lambda Labs (Escalated) -->
+<div class="activity-card bg-surface-container-lowest rounded-xl p-space-md shadow-sm transition-all flex flex-col gap-space-xs" data-status="review">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center text-amber-700 flex-shrink-0">
+<span class="material-symbols-outlined text-[22px]">memory</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-md text-body-sm font-bold text-on-surface truncate">High-Ticket GPU Cluster</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">Lambda Labs H100 · 34m ago</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-numeric-md text-body-md font-bold text-amber-900 tabular-nums">$1,400.00</span>
+<span class="font-label-sm text-[10px] text-amber-800 font-medium">Held at Gate</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1 mt-1">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 font-label-sm text-[10px] font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+              Escalated: Exceeds $500 Single Tx Cap
+            </span>
+<div class="flex items-center gap-1">
+<button class="px-2 py-0.5 rounded bg-primary text-on-primary font-label-sm text-[10px] font-bold hover:opacity-90">Review</button>
+</div>
+</div>
+</div>
+<!-- Item 4: Suspicious Merchant (Blocked) -->
+<div class="activity-card bg-surface-container-lowest rounded-xl p-space-md shadow-sm transition-all flex flex-col gap-space-xs" data-status="blocked">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-error-container flex items-center justify-center text-error flex-shrink-0">
+<span class="material-symbols-outlined text-[22px]">block</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-md text-body-sm font-bold text-on-surface truncate">Gambling / Unverified Merchant</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">BetSecure Interactive · 1h ago</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-numeric-md text-body-md font-bold text-error line-through tabular-nums">$250.00</span>
+<span class="font-label-sm text-[10px] text-error font-medium">Blocked</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1 mt-1">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-error-container text-error font-label-sm text-[10px] font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+              Blocked: Prohibited Merchant Category
+            </span>
+<span class="font-label-sm text-[10px] text-on-surface-variant font-medium">Zero Leakage</span>
+</div>
+</div>
+</div>
+</div>
+<!-- 4. PayPal Settlement Ribbon & Autonomous Micro-Control -->
+<div class="bg-surface-container-low rounded-xl p-space-md flex flex-col gap-space-sm shadow-sm mb-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-lowest flex items-center justify-center text-primary shadow-xs">
+<span class="material-symbols-outlined text-[18px]">account_balance</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-on-surface">Verified Auto-Settlement</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">Connected to PayPal Commercial Rail</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-[10px] font-bold text-tertiary uppercase">Enforced</span>
+<span class="material-symbols-outlined text-tertiary text-[20px]">check_circle</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<span class="font-body-sm text-[11px] text-on-surface-variant">Autonomous Single Tx Threshold: <strong class="text-on-surface font-semibold tabular-nums">$500.00</strong></span>
+<button class="font-label-sm text-label-sm font-semibold text-primary hover:underline">Adjust Rules</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function() {
+    // Dynamic Filter Chips Functionality
+    const filterContainer = document.getElementById('filter-container');
+    const activityCards = document.querySelectorAll('.activity-card');
+    
+    if (filterContainer) {
+      filterContainer.addEventListener('click', function(e) {
+        const btn = e.target.closest('.filter-chip');
+        if (!btn) return;
+        
+        const filter = btn.dataset.filter;
+        
+        // Update chip active classes
+        document.querySelectorAll('.filter-chip').forEach(c => {
+          c.classList.remove('bg-primary', 'text-on-primary', 'font-semibold', 'shadow-sm');
+          c.classList.add('bg-surface-container-lowest', 'text-on-surface-variant', 'font-medium');
+        });
+        btn.classList.add('bg-primary', 'text-on-primary', 'font-semibold', 'shadow-sm');
+        btn.classList.remove('bg-surface-container-lowest', 'text-on-surface-variant', 'font-medium');
+
+        // Filter cards
+        activityCards.forEach(card => {
+          const status = card.dataset.status;
+          if (filter === 'all' || status === filter) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    }
+
+    // Toggle Agent Online / Standby Micro-interaction
+    const toggleBtn = document.getElementById('toggle-agent');
+    if (toggleBtn) {
+      let active = true;
+      toggleBtn.addEventListener('click', function() {
+        active = !active;
+        if (!active) {
+          this.classList.remove('bg-primary', 'text-on-primary');
+          this.classList.add('bg-surface-container-highest', 'text-on-surface');
+          this.innerHTML = '<span class="material-symbols-outlined text-[16px]">pause</span><span>Standby</span>';
+        } else {
+          this.classList.remove('bg-surface-container-highest', 'text-on-surface');
+          this.classList.add('bg-primary', 'text-on-primary');
+          this.innerHTML = '<span class="material-symbols-outlined text-[16px]">smart_toy</span><span>Agent Online</span>';
+        }
+      });
+    }
+  })();
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-2px_12px_rgba(19,27,46,0.04)]" data-active-classes="text-primary font-semibold"><div class="flex items-center justify-around h-16 px-1"><a aria-current="page" class="min-w-[44px] min-h-[44px] flex flex-col items-center justify-center gap-0.5 transition-colors text-primary font-semibold" data-path="command-center" href="#"><span class="material-symbols-outlined text-[22px]">dashboard</span><span class="font-label-sm text-[11px] leading-tight">Command</span></a><a class="min-w-[44px] min-h-[44px] flex flex-col items-center justify-center gap-0.5 text-on-surface-variant hover:text-on-surface transition-colors" data-path="mandates" href="#"><span class="material-symbols-outlined text-[22px]">shield</span><span class="font-label-sm text-[11px] leading-tight">Mandates</span></a><a class="relative min-w-[44px] min-h-[44px] flex flex-col items-center justify-center gap-0.5 text-on-surface-variant hover:text-on-surface transition-colors" data-path="approvals" href="#"><div class="relative"><span class="material-symbols-outlined text-[22px]">verified</span><span class="absolute -top-1 -right-2 px-1.5 py-0.2 rounded-full bg-primary text-on-primary font-label-sm text-[9px] font-bold leading-none min-w-[14px] text-center shadow-sm">3</span></div><span class="font-label-sm text-[11px] leading-tight">Approvals</span></a><a class="min-w-[44px] min-h-[44px] flex flex-col items-center justify-center gap-0.5 text-on-surface-variant hover:text-on-surface transition-colors" data-path="fairshare" href="#"><span class="material-symbols-outlined text-[22px]">group_work</span><span class="font-label-sm text-[11px] leading-tight">FairShare</span></a><a class="min-w-[44px] min-h-[44px] flex flex-col items-center justify-center gap-0.5 text-on-surface-variant hover:text-on-surface transition-colors" data-path="tools" href="#"><span class="material-symbols-outlined text-[22px]">apps</span><span class="font-label-sm text-[11px] leading-tight">Tools</span></a></div></nav></body></html>

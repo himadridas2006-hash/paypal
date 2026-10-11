@@ -1,0 +1,489 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─────────────────────────────────────────────────────────────
+   MANDATE — PREMIUM FINTECH DESIGN SYSTEM
+   Three-mode: ☀️ Light · 🌑 Dark · 🌲 Forest
+───────────────────────────────────────────────────────────── */
+
+/* ───── ☀️ LIGHT: Minimalist Architecture (Grey Tone & White Tone) ───── */
+:root,
+.theme-light {
+  --color-surface:                  #f4f5f7;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low:    #ebedf2;
+  --color-surface-container:        #e2e5eb;
+  --color-surface-container-high:   #d8dce4;
+  --color-surface-container-highest:#ced3dc;
+  --color-on-surface:               #111827;
+  --color-on-surface-variant:       #4b5563;
+  --color-outline-variant:          #d1d5db;
+  --color-primary:                  #1f2937;
+  --color-primary-container:        #374151;
+  --color-on-primary:               #ffffff;
+  --color-secondary:                #475569;
+  --color-on-secondary:             #ffffff;
+  --color-secondary-container:      #e2e8f0;
+  --color-tertiary:                 #059669;
+  --color-error:                    #dc2626;
+  --color-error-container:          #fef2f2;
+
+  --glow-primary:    rgba(31, 41, 55, 0.1);
+  --glow-secondary:  rgba(71, 85, 105, 0.08);
+  --glow-tertiary:   rgba(5, 150, 105, 0.1);
+
+  --card-border:  #e5e7eb;
+  --card-shadow:  0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+  --card-shadow-hover: 0 4px 12px rgba(0,0,0,0.1), 0 12px 30px rgba(0,0,0,0.06);
+
+  --header-bg:    rgba(244, 245, 247, 0.9);
+  --nav-bg:       rgba(244, 245, 247, 0.94);
+  --surface-glass: rgba(255, 255, 255, 0.85);
+}
+
+/* ───── 🌑 DARK: Lighter Slate (White Tone & Dark Tone) ───── */
+.theme-dark {
+  --color-surface:                  #181d26;
+  --color-surface-container-lowest: #202734;
+  --color-surface-container-low:    #1c222e;
+  --color-surface-container:        #263040;
+  --color-surface-container-high:   #2e3a4e;
+  --color-surface-container-highest:#38465d;
+  --color-on-surface:               #ffffff;
+  --color-on-surface-variant:       #d1d5db;
+  --color-outline-variant:          rgba(255, 255, 255, 0.18);
+  --color-primary:                  #60a5fa;
+  --color-primary-container:        #3b82f6;
+  --color-on-primary:               #ffffff;
+  --color-secondary:                #a78bfa;
+  --color-on-secondary:             #ffffff;
+  --color-secondary-container:      rgba(167, 139, 250, 0.2);
+  --color-tertiary:                 #34d399;
+  --color-error:                    #f87171;
+  --color-error-container:          rgba(248,113,113,0.15);
+
+  --glow-primary:    rgba(96, 165, 250, 0.2);
+  --glow-secondary:  rgba(167, 139, 250, 0.16);
+  --glow-tertiary:   rgba(52, 211, 153, 0.18);
+
+  --card-border:  rgba(255, 255, 255, 0.16);
+  --card-shadow:  0 0 0 1px rgba(255,255,255,0.08), 0 4px 20px rgba(0,0,0,0.35);
+  --card-shadow-hover: 0 0 0 1px rgba(255,255,255,0.25), 0 8px 30px rgba(0,0,0,0.45);
+
+  --header-bg:    rgba(24, 29, 38, 0.9);
+  --nav-bg:       rgba(24, 29, 38, 0.94);
+  --surface-glass: rgba(32, 39, 52, 0.85);
+}
+
+/* ───── 🌲 FOREST: Modern Botanical Mint-White with Forest Green Tones ───── */
+.theme-forest {
+  --color-surface:                  #f3f8f5;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low:    #ebf5ef;
+  --color-surface-container:        #e0eee5;
+  --color-surface-container-high:   #d3e5da;
+  --color-surface-container-highest:#c4dcce;
+  --color-on-surface:               #072415;
+  --color-on-surface-variant:       #205238;
+  --color-outline-variant:          rgba(5, 150, 105, 0.22);
+  --color-primary:                  #059669;
+  --color-primary-container:        #10b981;
+  --color-on-primary:               #ffffff;
+  --color-secondary:                #047857;
+  --color-on-secondary:             #ffffff;
+  --color-secondary-container:      #d1fae5;
+  --color-tertiary:                 #0d9488;
+  --color-error:                    #dc2626;
+  --color-error-container:          #fef2f2;
+
+  --glow-primary:    rgba(5, 150, 105, 0.16);
+  --glow-secondary:  rgba(16, 185, 129, 0.14);
+  --glow-tertiary:   rgba(13, 148, 136, 0.12);
+
+  --card-border:  rgba(5, 150, 105, 0.2);
+  --card-shadow:  0 1px 4px rgba(7, 36, 21, 0.05), 0 4px 18px rgba(7, 36, 21, 0.04);
+  --card-shadow-hover: 0 4px 16px rgba(7, 36, 21, 0.08), 0 12px 30px rgba(5, 150, 105, 0.12);
+
+  --header-bg:    rgba(243, 248, 245, 0.9);
+  --nav-bg:       rgba(243, 248, 245, 0.94);
+  --surface-glass: rgba(255, 255, 255, 0.88);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   BASE STYLES
+───────────────────────────────────────────────────────────── */
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  html, body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-surface);
+    color: var(--color-on-surface);
+    transition:
+      background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+      color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  body {
+    overscroll-behavior: none;
+    font-family: 'Hanken Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   PREMIUM COMPONENT LIBRARY
+───────────────────────────────────────────────────────────── */
+
+/* Glassmorphism Cards */
+.glass-card {
+  background: var(--surface-glass);
+  backdrop-filter: blur(20px) saturate(1.8);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow);
+  border-radius: 16px;
+  transition: box-shadow 0.3s ease, transform 0.25s ease, border-color 0.3s ease;
+}
+
+.glass-card:hover {
+  box-shadow: var(--card-shadow-hover);
+  border-color: rgba(var(--color-primary-rgb, 26,86,232), 0.25);
+  transform: translateY(-1px);
+}
+
+/* Standard data cards */
+.data-card {
+  background-color: var(--color-surface-container-lowest);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow);
+  border-radius: 14px;
+  transition: box-shadow 0.25s ease, transform 0.2s ease;
+}
+
+.data-card:hover {
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-1px);
+}
+
+/* Metric value text */
+.metric-value {
+  font-family: 'Hanken Grotesk', monospace;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+/* Status badges */
+.badge-approved {
+  background: rgba(5, 150, 105, 0.12);
+  color: var(--color-tertiary);
+  border: 1px solid rgba(5, 150, 105, 0.2);
+}
+.badge-blocked {
+  background: var(--color-error-container);
+  color: var(--color-error);
+  border: 1px solid rgba(220, 38, 38, 0.15);
+}
+.badge-pending {
+  background: rgba(245, 158, 11, 0.1);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+/* Glowing primary button */
+.btn-primary-glow {
+  background: var(--color-primary-container);
+  color: var(--color-on-primary);
+  box-shadow: 0 0 0 0 var(--glow-primary), 0 2px 8px var(--glow-primary);
+  transition: all 0.25s ease;
+}
+.btn-primary-glow:hover {
+  box-shadow: 0 0 20px 4px var(--glow-primary), 0 4px 16px var(--glow-primary);
+  transform: translateY(-1px);
+}
+.btn-primary-glow:active {
+  transform: translateY(0) scale(0.97);
+}
+
+/* Animated gradient line */
+.gradient-line {
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary), var(--color-tertiary));
+  background-size: 200% 100%;
+  animation: shimmer-line 3s linear infinite;
+}
+
+@keyframes shimmer-line {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Ambient pulse for online indicator */
+@keyframes ambient-pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 var(--glow-tertiary); }
+  50%       { opacity: 0.7; box-shadow: 0 0 0 6px transparent; }
+}
+.ambient-pulse {
+  animation: ambient-pulse 2s ease-in-out infinite;
+}
+
+/* Progress bar with shimmer */
+.progress-bar-track {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--color-surface-container-high);
+  overflow: hidden;
+  position: relative;
+}
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--color-primary-container), var(--color-primary));
+  position: relative;
+  overflow: hidden;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.progress-bar-fill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.25) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer-line 2s linear infinite;
+}
+
+/* Floating number counter animation */
+@keyframes count-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.count-animate {
+  animation: count-up 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   SCROLLBARS
+───────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--color-outline-variant);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-container);
+}
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ─────────────────────────────────────────────────────────────
+   SAFE AREA UTILITIES
+───────────────────────────────────────────────────────────── */
+.pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); }
+.pt-safe { padding-top: env(safe-area-inset-top, 0px); }
+
+/* ─────────────────────────────────────────────────────────────
+   TRANSACTION STREAM ITEM ANIMATION
+───────────────────────────────────────────────────────────── */
+@keyframes slide-in-from-top {
+  from { opacity: 0; transform: translateY(-12px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.tx-enter {
+  animation: slide-in-from-top 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   THEME SWITCHER SLIDER (3-way pill)
+───────────────────────────────────────────────────────────── */
+.theme-slider {
+  display: flex;
+  align-items: center;
+  padding: 3px;
+  border-radius: 999px;
+  background: var(--color-surface-container);
+  border: 1px solid var(--color-outline-variant);
+  gap: 2px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.08);
+}
+.theme-slider-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: var(--color-on-surface-variant);
+  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+}
+.theme-slider-btn.active {
+  background: var(--color-surface-container-lowest);
+  color: var(--color-primary);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.12), 0 0 0 1px var(--card-border);
+}
+.theme-slider-btn:hover:not(.active) {
+  background: var(--color-surface-container-high);
+  color: var(--color-on-surface);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   PREMIUM INPUT STYLES
+───────────────────────────────────────────────────────────── */
+.premium-input {
+  background: var(--color-surface-container-lowest);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: 10px;
+  color: var(--color-on-surface);
+  padding: 10px 14px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+  outline: none;
+}
+.premium-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--glow-primary);
+}
+.premium-input::placeholder {
+  color: var(--color-on-surface-variant);
+  opacity: 0.6;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   GLOW EFFECTS FOR DARK / FOREST MODES
+───────────────────────────────────────────────────────────── */
+.theme-dark .glow-primary,
+.theme-forest .glow-primary {
+  box-shadow: 0 0 24px var(--glow-primary);
+}
+
+.theme-dark .data-card,
+.theme-forest .data-card {
+  background-color: var(--color-surface-container-lowest);
+  border-color: var(--card-border);
+  box-shadow: var(--card-shadow);
+}
+
+.theme-dark .data-card:hover,
+.theme-forest .data-card:hover {
+  box-shadow: var(--card-shadow-hover);
+  border-color: rgba(96,165,250,0.2);
+}
+
+.theme-forest .data-card:hover {
+  border-color: rgba(16,217,139,0.22);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   BOTTOM NAV ACTIVE INDICATOR
+───────────────────────────────────────────────────────────── */
+@keyframes nav-pop {
+  0%   { transform: scale(0.85) translateY(2px); }
+  60%  { transform: scale(1.08) translateY(-2px); }
+  100% { transform: scale(1) translateY(0); }
+}
+.nav-active-pop {
+  animation: nav-pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.theme-forest .gradient-text {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-tertiary));
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   GLOBAL CARD ENHANCEMENTS
+   Auto-applies premium borders/shadows to all card containers
+   without needing component changes.
+───────────────────────────────────────────────────────────── */
+
+/* All rounded card-like elements get our design system border + shadow */
+.rounded-xl, .rounded-2xl, .rounded-3xl {
+  transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+}
+
+/* Dark & Forest: elevate all surface cards */
+.theme-dark .bg-surface-container-lowest,
+.theme-forest .bg-surface-container-lowest {
+  border-color: var(--card-border) !important;
+  box-shadow: var(--card-shadow) !important;
+}
+
+.theme-dark .bg-surface-container-low,
+.theme-forest .bg-surface-container-low {
+  border-color: var(--color-outline-variant) !important;
+}
+
+/* All themes: hover shadow on interactive cards */
+.cursor-pointer.rounded-xl:hover,
+.cursor-pointer.rounded-2xl:hover {
+  box-shadow: var(--card-shadow-hover) !important;
+  transform: translateY(-1px);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   MAIN PAGE SCROLL AREA
+───────────────────────────────────────────────────────────── */
+main {
+  min-height: calc(100vh - 4rem - 4rem);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   MODAL BACKDROP PREMIUM BLUR
+───────────────────────────────────────────────────────────── */
+.modal-backdrop {
+  backdrop-filter: blur(16px) brightness(0.6);
+  -webkit-backdrop-filter: blur(16px) brightness(0.6);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   RISK SCORE METER
+───────────────────────────────────────────────────────────── */
+.risk-low    { color: var(--color-tertiary);  }
+.risk-medium { color: #f59e0b; }
+.risk-high   { color: var(--color-error);     }
+
+/* ─────────────────────────────────────────────────────────────
+   TOGGLE / SWITCH OVERRIDE
+───────────────────────────────────────────────────────────── */
+.peer:checked ~ div {
+  background-color: var(--color-primary) !important;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   INPUT FOCUS RING (premium override)
+───────────────────────────────────────────────────────────── */
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 3px var(--glow-primary);
+}
+

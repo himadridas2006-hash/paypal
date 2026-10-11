@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Next.js build output
+.next/
+out/
+
+# Android build outputs & local config
+android/.gradle
+android/build
+android/*/build
+android/local.properties
+android/.idea
+android/*.iml
+android/captures
+android/.cxx
+
+# Debug APKs if you don't want them in git history (optional, or kept if wanted)
+# android/app/build/outputs/apk/
+
+# Environment files
+.env*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;family=Manrope:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface": "#faf8ff", "on-secondary": "#ffffff", "tertiary": "#006947", "secondary": "#4b41e1", "on-secondary-container": "#fffbff", "primary-container": "#2170e4", "on-primary-container": "#fefcff", "on-surface-variant": "#424754", "error": "#ba1a1a", "secondary-fixed-dim": "#c3c0ff", "tertiary-fixed-dim": "#4edea3", "outline": "#727785", "on-secondary-fixed-variant": "#3323cc", "inverse-surface": "#283044", "secondary-fixed": "#e2dfff", "tertiary-fixed": "#6ffbbe", "on-surface": "#131b2e", "on-primary-fixed-variant": "#004395", "surface-container-highest": "#dae2fd", "inverse-on-surface": "#eef0ff", "error-container": "#ffdad6", "surface-bright": "#faf8ff", "tertiary-container": "#00855b", "on-error-container": "#93000a", "on-background": "#131b2e", "surface-container-lowest": "#ffffff", "primary-fixed-dim": "#adc6ff", "surface-variant": "#dae2fd", "surface-dim": "#d2d9f4", "primary-fixed": "#d8e2ff", "surface-container": "#eaedff", "on-tertiary-fixed-variant": "#005236", "secondary-container": "#645efb", "on-secondary-fixed": "#0f0069", "surface-tint": "#005ac2", "background": "#faf8ff", "on-tertiary-container": "#f5fff6", "inverse-primary": "#adc6ff", "outline-variant": "#c2c6d6", "on-tertiary-fixed": "#002113", "on-tertiary": "#ffffff", "on-error": "#ffffff", "surface-container-low": "#f2f3ff", "on-primary-fixed": "#001a42", "primary": "#0058be", "on-primary": "#ffffff", "surface-container-high": "#e2e7ff" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-sm": "0.5rem", "margin": "2rem", "margin-mobile": "1rem", "space-lg": "1.5rem", "space-xs": "0.25rem", "gutter-mobile": "1rem", "space-xl": "2rem", "space-md": "1rem", "gutter": "1.5rem" }, fontFamily: { "body-md": ["Hanken Grotesk"], "numeric-md": ["Hanken Grotesk"], "headline-lg": ["Manrope"], "headline-xl": ["Manrope"], "headline-md": ["Manrope"], "headline-xl-mobile": ["Manrope"], "label-sm": ["Hanken Grotesk"], "label-md": ["Hanken Grotesk"], "body-sm": ["Hanken Grotesk"], "body-lg": ["Hanken Grotesk"], "numeric-lg": ["Hanken Grotesk"], "display-lg": ["Manrope"] }, fontSize: { "body-md": ["0.9375rem", { "lineHeight": "1.5rem", "fontWeight": "400" }], "numeric-md": ["1.25rem", { "lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "600" }], "headline-lg": ["1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.015em", "fontWeight": "600" }], "headline-xl": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.02em", "fontWeight": "700" }], "headline-md": ["1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.01em", "fontWeight": "600" }], "headline-xl-mobile": ["1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.015em", "fontWeight": "700" }], "label-sm": ["0.75rem", { "lineHeight": "1rem", "letterSpacing": "0.04em", "fontWeight": "600" }], "label-md": ["0.875rem", { "lineHeight": "1.25rem", "fontWeight": "500" }], "body-sm": ["0.8125rem", { "lineHeight": "1.25rem", "fontWeight": "400" }], "body-lg": ["1.125rem", { "lineHeight": "1.75rem", "fontWeight": "400" }], "numeric-lg": ["2rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "700" }], "display-lg": ["3.5rem", { "lineHeight": "4rem", "letterSpacing": "-0.025em", "fontWeight": "700" }] } } } };</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.03)]"><div class="h-16 px-gutter-mobile flex items-center justify-between gap-space-xs"><div class="flex items-center gap-space-sm"><img alt="Mandate Brand Mark" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCL2FjwHpdnPT9QH7sKJs9ayHjgVsBT9l8jBbFmHEy-l_EgN0V5M58QGghA10N5-IN6vYBn0YURW719IH2B0fkIABxSaBCmvZHXbZqZ9vJ4bo8X3zMkN_FJeZxscT1KcJQIeB0AU2vLur_YoK9M9KS_Nh2syAqObFyJnu6Vx-GYMA9-QuuadOdIG5reDOmUUh2XcRXUQZWKnC6X8uxWcPZSbkbyckVz69TMD7wmKljU04NaC5yUv8ZT"/><div class="flex flex-col"><span class="font-headline-md text-body-sm font-semibold tracking-tight text-on-surface leading-tight">Mandate</span><span class="font-label-sm text-label-sm text-on-surface-variant leading-none">Mandates</span></div></div><div class="flex items-center gap-space-xs"><div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-50 text-amber-800 shadow-[0_1px_4px_rgba(245,158,11,0.12)]"><span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span><span class="font-label-sm text-[10px] tracking-wider uppercase font-bold">Sandbox</span><label class="relative inline-flex items-center cursor-pointer ml-0.5"><input checked="" class="sr-only peer" type="checkbox"/><span class="w-5 h-3 bg-amber-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-2 peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-amber-300 after:border after:rounded-full after:h-2 after:w-2 after:transition-all peer-checked:bg-amber-500"></span></label></div><div class="hidden sm:flex flex-col items-end px-2 py-0.5 rounded-lg bg-surface-container-low"><span class="font-label-sm text-[10px] text-on-surface-variant uppercase tracking-wider">Vault</span><span class="font-numeric-md text-body-sm text-primary font-bold tabular-nums">$142,580.00</span></div><button aria-label="Profile" class="w-11 h-11 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors" type="button"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJBVlSQ2JwGX2gZQ5GQVsu6kkAr1bCimuo7jACoC9U0nui9aWgfuICynvMLVSfNYutoeLU5WLUg8Qr7vaG8CoY5YZtu6H0DXBpLU9qPRIMapgk6yvY0tGE4N1ZQlG3j7UQYzkMu8jSQJoMkwQZDUBmjWyD9Wl6zSJxaBUFEQnzSoAz4OJMd00EGwtymhUffsIAT5qV6HUWHgkztRA4KhncSEmywlEvUxbAL7fpBPZ6wyDvzqSGA9GX"/></button></div></div></header><main class="flex-1 w-full bg-surface pt-16 pb-24"><div class="flex flex-col w-full">
+<!-- Interactive Notification Banner -->
+<div class="px-gutter-mobile pt-space-md">
+<div class="bg-surface-container-high rounded-xl p-space-md shadow-sm flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded-full bg-secondary/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-secondary text-[18px]">psychology</span>
+</div>
+<div class="min-w-0">
+<p class="font-label-md text-label-md text-on-surface font-semibold truncate">Autonomous Policy Engine</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Zero unauthorized overages recorded</p>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-tertiary-container/15 text-tertiary font-label-sm text-label-sm font-semibold shrink-0">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span>
+        Live Rail
+      </span>
+</div>
+</div>
+<!-- Header Section -->
+<div class="px-gutter-mobile pt-space-lg pb-space-sm flex items-end justify-between gap-space-sm">
+<div>
+<div class="flex items-center gap-2 mb-0.5">
+<h1 class="font-headline-md text-headline-md font-bold text-on-surface">Active Agent Mandates</h1>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-highest text-primary font-label-sm text-label-sm font-semibold">5 Agents</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Real-time spend ceilings &amp; telemetry limits</p>
+</div>
+<button class="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-primary text-on-primary font-label-md text-label-md font-semibold shadow-md active:scale-95 transition-all" id="openMandateDrawer" type="button">
+<span class="material-symbols-outlined text-[18px]">add_moderator</span>
+<span>+ New Mandate</span>
+</button>
+</div>
+<!-- Quick Filter Pills -->
+<div class="px-gutter-mobile py-space-sm flex gap-2 overflow-x-auto no-scrollbar">
+<button class="px-3 py-1.5 rounded-full bg-primary text-on-primary font-label-sm text-label-sm font-medium shadow-sm whitespace-nowrap">All Active (5)</button>
+<button class="px-3 py-1.5 rounded-full bg-surface-container-low text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm font-medium whitespace-nowrap">High Utilization (1)</button>
+<button class="px-3 py-1.5 rounded-full bg-surface-container-low text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm font-medium whitespace-nowrap">Auto-Approving (4)</button>
+<button class="px-3 py-1.5 rounded-full bg-surface-container-low text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm font-medium whitespace-nowrap">Sandbox (1)</button>
+</div>
+<!-- Mandates Cards Stream -->
+<div class="px-gutter-mobile py-space-sm space-y-space-md">
+<!-- Card 1: SaaS & Dev Tools Agent -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md transition-shadow hover:shadow-md">
+<!-- Top meta line -->
+<div class="flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-11 h-11 rounded-xl bg-surface-container-high flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-[22px]">terminal</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<h2 class="font-headline-md text-headline-md text-on-surface font-bold truncate">SaaS &amp; Dev Tools Agent</h2>
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">ID: mdt-7749 • Autonomous Auto-Debit</p>
+</div>
+</div>
+<!-- Status Switch -->
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-surface-container-lowest after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-surface-container-lowest after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<!-- Utilization Block -->
+<div class="bg-surface-container-low rounded-xl p-space-md flex items-center justify-between gap-space-md">
+<div class="space-y-1">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-semibold">Monthly Spend Cap</span>
+<div class="flex items-baseline gap-1.5">
+<span class="font-numeric-md text-numeric-md font-bold text-on-surface">$3,400</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">/ $5,000</span>
+</div>
+<p class="font-label-sm text-label-sm text-tertiary font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_down</span> $1,600 runway left
+          </p>
+</div>
+<!-- SVG Circular Ring: 68% -->
+<div class="relative w-16 h-16 shrink-0 flex items-center justify-center">
+<svg class="w-16 h-16 -rotate-90" viewbox="0 0 48 48">
+<circle class="text-surface-container-highest" cx="24" cy="24" fill="none" r="19" stroke="currentColor" stroke-width="4.5"></circle>
+<circle class="text-primary" cx="24" cy="24" fill="none" r="19" stroke="currentColor" stroke-dasharray="119.38" stroke-dashoffset="38.2" stroke-linecap="round" stroke-width="4.5"></circle>
+</svg>
+<span class="absolute font-numeric-md text-body-sm font-bold text-on-surface">68%</span>
+</div>
+</div>
+<!-- Guardrails Preview Spec -->
+<div class="space-y-2">
+<div class="grid grid-cols-2 gap-2 text-body-sm">
+<div class="bg-surface-container-low rounded-lg p-2.5">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Per-Tx Cap</span>
+<span class="font-numeric-md text-body-sm font-semibold text-on-surface">$350.00</span>
+</div>
+<div class="bg-surface-container-low rounded-lg p-2.5">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Approval Trigger</span>
+<span class="font-numeric-md text-body-sm font-semibold text-primary">Above $300.00</span>
+</div>
+</div>
+<div class="pt-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold block mb-1.5">Authorized Whitelist</span>
+<div class="flex flex-wrap gap-1.5">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>GitHub
+            </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>AWS
+            </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>OpenAI
+            </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>Vercel
+            </span>
+</div>
+</div>
+</div>
+<div class="pt-space-sm flex items-center justify-between">
+<button class="inline-flex items-center gap-1 text-primary font-label-md text-label-md font-semibold hover:underline">
+<span class="material-symbols-outlined text-[16px]">tune</span> Adjust Thresholds
+        </button>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Cycles in 8 days</span>
+</div>
+</div>
+<!-- Card 2: Marketing & Ad Spend Agent (Warning Tier) -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md transition-shadow hover:shadow-md">
+<!-- Top meta line -->
+<div class="flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-11 h-11 rounded-xl bg-amber-100 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-amber-800 text-[22px]">campaign</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<h2 class="font-headline-md text-headline-md text-on-surface font-bold truncate">Marketing &amp; Ad Spend</h2>
+<span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">ID: mdt-9122 • High Velocity Channel</p>
+</div>
+</div>
+<!-- Status Switch -->
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-surface-container-lowest after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-surface-container-lowest after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<!-- Utilization Block with Warning -->
+<div class="bg-amber-50 rounded-xl p-space-md flex items-center justify-between gap-space-md">
+<div class="space-y-1">
+<div class="flex items-center gap-1 text-amber-800">
+<span class="material-symbols-outlined text-[16px]">warning</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-bold">Near Guardrail Cap</span>
+</div>
+<div class="flex items-baseline gap-1.5">
+<span class="font-numeric-md text-numeric-md font-bold text-on-surface">$9,100</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">/ $10,000</span>
+</div>
+<p class="font-label-sm text-label-sm text-amber-900 font-semibold">$900 buffer before freeze</p>
+</div>
+<!-- SVG Circular Ring: 91% (Amber) -->
+<div class="relative w-16 h-16 shrink-0 flex items-center justify-center">
+<svg class="w-16 h-16 -rotate-90" viewbox="0 0 48 48">
+<circle class="text-amber-200" cx="24" cy="24" fill="none" r="19" stroke="currentColor" stroke-width="4.5"></circle>
+<circle class="text-amber-600" cx="24" cy="24" fill="none" r="19" stroke="currentColor" stroke-dasharray="119.38" stroke-dashoffset="10.74" stroke-linecap="round" stroke-width="4.5"></circle>
+</svg>
+<span class="absolute font-numeric-md text-body-sm font-bold text-amber-900">91%</span>
+</div>
+</div>
+<!-- Guardrails Preview Spec -->
+<div class="space-y-2">
+<div class="grid grid-cols-2 gap-2 text-body-sm">
+<div class="bg-surface-container-low rounded-lg p-2.5">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Per-Tx Hard Cap</span>
+<span class="font-numeric-md text-body-sm font-semibold text-on-surface">$1,200.00</span>
+</div>
+<div class="bg-surface-container-low rounded-lg p-2.5">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Human Review</span>
+<span class="font-numeric-md text-body-sm font-semibold text-amber-800">Above $750.00</span>
+</div>
+</div>
+<div class="pt-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold block mb-1.5">Authorized Whitelist</span>
+<div class="flex flex-wrap gap-1.5">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>Google Ads
+            </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>Meta
+            </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>LinkedIn
+            </span>
+</div>
+</div>
+</div>
+<div class="pt-space-sm flex items-center justify-between">
+<button class="inline-flex items-center gap-1 text-primary font-label-md text-label-md font-semibold hover:underline">
+<span class="material-symbols-outlined text-[16px]">add_circle</span> Request Cap Elevation
+        </button>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Resets in 3 days</span>
+</div>
+</div>
+<!-- Card 3: Office & Operations Agent -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md transition-shadow hover:shadow-md">
+<!-- Top meta line -->
+<div class="flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-11 h-11 rounded-xl bg-surface-container-high flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-secondary text-[22px]">storefront</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<h2 class="font-headline-md text-headline-md text-on-surface font-bold truncate">Office &amp; Operations Agent</h2>
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">ID: mdt-4431 • Facilities &amp; Supplies</p>
+</div>
+</div>
+<!-- Status Switch -->
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-surface-container-lowest after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-surface-container-lowest after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<!-- Utilization Block -->
+<div class="bg-surface-container-low rounded-xl p-space-md flex items-center justify-between gap-space-md">
+<div class="space-y-1">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-semibold">Monthly Spend Cap</span>
+<div class="flex items-baseline gap-1.5">
+<span class="font-numeric-md text-numeric-md font-bold text-on-surface">$1,200</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">/ $5,000</span>
+</div>
+<p class="font-label-sm text-label-sm text-tertiary font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">shield</span> Optimal spend pace
+          </p>
+</div>
+<!-- SVG Circular Ring: 24% -->
+<div class="relative w-16 h-16 shrink-0 flex items-center justify-center">
+<svg class="w-16 h-16 -rotate-90" viewbox="0 0 48 48">
+<circle class="text-surface-container-highest" cx="24" cy="24" fill="none" r="19" stroke="currentColor" stroke-width="4.5"></circle>
+<circle class="text-tertiary" cx="24" cy="24" fill="none" r="19" stroke="currentColor" stroke-dasharray="119.38" stroke-dashoffset="90.72" stroke-linecap="round" stroke-width="4.5"></circle>
+</svg>
+<span class="absolute font-numeric-md text-body-sm font-bold text-on-surface">24%</span>
+</div>
+</div>
+<!-- Guardrails Preview Spec -->
+<div class="space-y-2">
+<div class="grid grid-cols-2 gap-2 text-body-sm">
+<div class="bg-surface-container-low rounded-lg p-2.5">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Per-Tx Cap</span>
+<span class="font-numeric-md text-body-sm font-semibold text-on-surface">$150.00</span>
+</div>
+<div class="bg-surface-container-low rounded-lg p-2.5">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Auto-Approved</span>
+<span class="font-numeric-md text-body-sm font-semibold text-tertiary">All within cap</span>
+</div>
+</div>
+<div class="pt-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold block mb-1.5">Authorized Whitelist</span>
+<div class="flex flex-wrap gap-1.5">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>Staples
+            </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>Amazon Business
+            </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>Slack
+            </span>
+</div>
+</div>
+</div>
+<div class="pt-space-sm flex items-center justify-between">
+<button class="inline-flex items-center gap-1 text-primary font-label-md text-label-md font-semibold hover:underline">
+<span class="material-symbols-outlined text-[16px]">history</span> Transaction Ledger
+        </button>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Resets in 18 days</span>
+</div>
+</div>
+</div>
+<!-- Slide-Over / Modal Bottom Sheet Preview for New Mandate -->
+<div class="fixed inset-0 z-50 flex flex-col justify-end transition-opacity duration-300" id="newMandateModal">
+<!-- Optical Scrim -->
+<div class="absolute inset-0 bg-inverse-surface/40 backdrop-blur-sm transition-opacity" id="modalBackdrop"></div>
+<!-- Sheet Panel Container -->
+<div class="relative bg-surface-container-lowest rounded-t-2xl shadow-xl max-h-[88vh] flex flex-col w-full overflow-hidden transition-transform duration-300 transform translate-y-0">
+<!-- Drag Handle & Modal Header -->
+<div class="pt-3 pb-2 px-gutter-mobile flex flex-col items-center bg-surface-container-lowest">
+<div class="w-12 h-1.5 rounded-full bg-surface-container-highest mb-3"></div>
+<div class="w-full flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[20px]">add_card</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md font-bold text-on-surface">Deploy New Agent Mandate</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Autonomous Guardrails &amp; Funding Source</p>
+</div>
+</div>
+<button class="w-9 h-9 rounded-full bg-surface-container-low flex items-center justify-center text-on-surface-variant hover:text-on-surface" id="closeMandateDrawer" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+</div>
+<!-- Scrollable Form Body -->
+<div class="flex-1 overflow-y-auto px-gutter-mobile py-space-md space-y-space-md">
+<!-- Agent Name & Purpose -->
+<div class="space-y-1.5">
+<label class="font-label-md text-label-md font-semibold text-on-surface">Agent Identity &amp; Purpose</label>
+<div class="space-y-2">
+<input class="w-full h-11 px-3.5 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none transition-all placeholder:text-outline" placeholder="e.g. Procurement Copilot" type="text" value="Infra Cloud Auto-Scaler"/>
+<input class="w-full h-10 px-3.5 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:bg-surface-container-lowest focus:outline-none transition-all placeholder:text-outline" placeholder="Mandate purpose description..." type="text" value="Dynamic AWS burst instances &amp; cluster autoscaling nodes"/>
+</div>
+</div>
+<!-- Spend Limit & Reset Cycle -->
+<div class="space-y-1.5">
+<label class="font-label-md text-label-md font-semibold text-on-surface">Total Spend Ceiling</label>
+<div class="grid grid-cols-2 gap-2">
+<div class="relative flex items-center">
+<span class="absolute left-3.5 font-numeric-md text-body-md text-on-surface-variant font-bold">$</span>
+<input class="w-full h-11 pl-8 pr-3.5 rounded-lg bg-surface-container-low text-on-surface font-numeric-md text-numeric-md font-bold focus:bg-surface-container-lowest focus:outline-none transition-all" type="number" value="7500"/>
+</div>
+<!-- Reset Cycle Selector -->
+<div class="flex p-1 bg-surface-container-low rounded-lg">
+<button class="flex-1 py-1 rounded text-center font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface" type="button">Daily</button>
+<button class="flex-1 py-1 rounded text-center font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface" type="button">Weekly</button>
+<button class="flex-1 py-1 rounded bg-primary text-on-primary font-label-sm text-label-sm font-semibold shadow-sm" type="button">Monthly</button>
+</div>
+</div>
+</div>
+<!-- Per-Tx Hard Cap & Approval Trigger -->
+<div class="grid grid-cols-2 gap-2">
+<div class="space-y-1.5">
+<label class="font-label-md text-label-md font-semibold text-on-surface">Per-Tx Hard Cap</label>
+<div class="relative flex items-center">
+<span class="absolute left-3 font-numeric-md text-body-sm text-on-surface-variant">$</span>
+<input class="w-full h-11 pl-7 pr-3 rounded-lg bg-surface-container-low text-on-surface font-numeric-md text-body-md font-bold focus:bg-surface-container-lowest focus:outline-none" type="number" value="600"/>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="font-label-md text-label-md font-semibold text-on-surface">Human Approval</label>
+<div class="relative flex items-center">
+<span class="absolute left-3 font-numeric-md text-body-sm text-on-surface-variant">&gt; $</span>
+<input class="w-full h-11 pl-8 pr-3 rounded-lg bg-surface-container-low text-on-surface font-numeric-md text-body-md font-bold focus:bg-surface-container-lowest focus:outline-none" type="number" value="450"/>
+</div>
+</div>
+</div>
+<!-- Allowed Merchant Categories (Pill selectors) -->
+<div class="space-y-1.5">
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md font-semibold text-on-surface">Merchant Categories</label>
+<span class="font-label-sm text-label-sm text-primary font-medium">Select multiple</span>
+</div>
+<div class="flex flex-wrap gap-2 pt-1">
+<button class="px-3 py-1.5 rounded-full bg-primary text-on-primary font-label-sm text-label-sm font-semibold flex items-center gap-1 shadow-sm" type="button">
+<span class="material-symbols-outlined text-[14px]">check</span> Cloud Services
+            </button>
+<button class="px-3 py-1.5 rounded-full bg-primary text-on-primary font-label-sm text-label-sm font-semibold flex items-center gap-1 shadow-sm" type="button">
+<span class="material-symbols-outlined text-[14px]">check</span> Software
+            </button>
+<button class="px-3 py-1.5 rounded-full bg-surface-container-low text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm" type="button">
+              + Hardware
+            </button>
+<button class="px-3 py-1.5 rounded-full bg-surface-container-low text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm" type="button">
+              + Travel
+            </button>
+<button class="px-3 py-1.5 rounded-full bg-surface-container-low text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm" type="button">
+              + Office
+            </button>
+</div>
+</div>
+<!-- Whitelisted Merchant Domains -->
+<div class="space-y-1.5">
+<label class="font-label-md text-label-md font-semibold text-on-surface">Domain Whitelist</label>
+<div class="flex flex-wrap items-center gap-1.5 p-2 rounded-lg bg-surface-container-low">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-lowest text-on-surface font-label-sm text-label-sm font-medium shadow-xs">
+              aws.amazon.com
+              <span class="material-symbols-outlined text-[14px] text-on-surface-variant cursor-pointer hover:text-error">close</span>
+</span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-lowest text-on-surface font-label-sm text-label-sm font-medium shadow-xs">
+              openai.com
+              <span class="material-symbols-outlined text-[14px] text-on-surface-variant cursor-pointer hover:text-error">close</span>
+</span>
+<input class="bg-transparent text-body-sm font-body-sm text-on-surface placeholder:text-outline focus:outline-none min-w-[130px] px-1 py-0.5" placeholder="+ Add domain (Enter)" type="text"/>
+</div>
+</div>
+<!-- Expiry Date & Source Funding Split -->
+<div class="grid grid-cols-2 gap-2">
+<div class="space-y-1.5">
+<label class="font-label-md text-label-md font-semibold text-on-surface">Mandate Expiry</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-[18px] text-on-surface-variant">calendar_today</span>
+<input class="w-full h-11 pl-9 pr-2 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:bg-surface-container-lowest focus:outline-none" type="date" value="2025-12-31"/>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="font-label-md text-label-md font-semibold text-on-surface">Funding Source</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-[18px] text-primary">account_balance_wallet</span>
+<select class="w-full h-11 pl-9 pr-6 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:bg-surface-container-lowest focus:outline-none appearance-none">
+<option selected="">PayPal Vault (Primary)</option>
+<option>Corporate Treasury (Chase)</option>
+<option>Sandbox Test Rail</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 text-[16px] text-on-surface-variant pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Security Affirmation Card -->
+<div class="rounded-xl p-3 bg-tertiary-container/10 flex items-start gap-2.5">
+<span class="material-symbols-outlined text-tertiary text-[20px] shrink-0 mt-0.5">verified_user</span>
+<div class="space-y-0.5 text-body-sm">
+<p class="font-label-md text-label-md text-tertiary font-bold">Cryptographically Bound Guardrail</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">This agent cannot execute transactions outside whitelist parameters without physical WebAuthn approval.</p>
+</div>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="p-gutter-mobile bg-surface-container-lowest flex items-center gap-space-sm shadow-[0_-4px_12px_rgba(0,0,0,0.03)]">
+<button class="w-1/3 h-12 rounded-xl bg-surface-container-low text-on-surface-variant hover:text-on-surface font-label-md text-label-md font-semibold active:scale-95 transition-all" id="cancelMandateDrawer" type="button">
+          Cancel
+        </button>
+<button class="w-2/3 h-12 rounded-xl bg-primary text-on-primary font-headline-md text-body-md font-bold shadow-md hover:bg-primary-container active:scale-95 transition-all flex items-center justify-center gap-2" id="deployMandateBtn" type="button">
+<span class="material-symbols-outlined text-[20px]">rocket_launch</span>
+<span>Deploy Guardrails</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function () {
+    const modal = document.getElementById('newMandateModal');
+    const openBtn = document.getElementById('openMandateDrawer');
+    const closeBtn = document.getElementById('closeMandateDrawer');
+    const cancelBtn = document.getElementById('cancelMandateDrawer');
+    const backdrop = document.getElementById('modalBackdrop');
+    const deployBtn = document.getElementById('deployMandateBtn');
+
+    function toggleModal(show) {
+      if (!modal) return;
+      if (show) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+      } else {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = '';
+      }
+    }
+
+    if (openBtn) openBtn.addEventListener('click', () => toggleModal(true));
+    if (closeBtn) closeBtn.addEventListener('click', () => toggleModal(false));
+    if (cancelBtn) cancelBtn.addEventListener('click', () => toggleModal(false));
+    if (backdrop) backdrop.addEventListener('click', () => toggleModal(false));
+
+    if (deployBtn) {
+      deployBtn.addEventListener('click', () => {
+        const originalText = deployBtn.innerHTML;
+        deployBtn.innerHTML = '<span class="material-symbols-outlined text-[20px] animate-spin">sync</span><span>Verifying Rail...</span>';
+        setTimeout(() => {
+          deployBtn.innerHTML = '<span class="material-symbols-outlined text-[20px]">check_circle</span><span>Mandate Active!</span>';
+          deployBtn.classList.remove('bg-primary');
+          deployBtn.classList.add('bg-tertiary');
+          setTimeout(() => {
+            toggleModal(false);
+            deployBtn.innerHTML = originalText;
+            deployBtn.classList.remove('bg-tertiary');
+            deployBtn.classList.add('bg-primary');
+          }, 900);
+        }, 1100);
+      });
+    }
+  })();
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-2px_12px_rgba(19,27,46,0.04)]" data-active-classes="text-primary font-semibold"><div class="flex items-center justify-around h-16 px-1"><a class="min-w-[44px] min-h-[44px] flex flex-col items-center justify-center gap-0.5 text-on-surface-variant hover:text-on-surface transition-colors" data-path="command-center" href="#"><span class="material-symbols-outlined text-[22px]">dashboard</span><span class="font-label-sm text-[11px] leading-tight">Command</span></a><a aria-current="page" class="min-w-[44px] min-h-[44px] flex flex-col items-center justify-center gap-0.5 transition-colors text-primary font-semibold" data-path="mandates" href="#"><span class="material-symbols-outlined text-[22px]">shield</span><span class="font-label-sm text-[11px] leading-tight">Mandates</span></a><a class="relative min-w-[44px] min-h-[44px] flex flex-col items-center justify-center gap-0.5 text-on-surface-variant hover:text-on-surface transition-colors" data-path="approvals" href="#"><div class="relative"><span class="material-symbols-outlined text-[22px]">verified</span><span class="absolute -top-1 -right-2 px-1.5 py-0.2 rounded-full bg-primary text-on-primary font-label-sm text-[9px] font-bold leading-none min-w-[14px] text-center shadow-sm">3</span></div><span class="font-label-sm text-[11px] leading-tight">Approvals</span></a><a class="min-w-[44px] min-h-[44px] flex flex-col items-center justify-center gap-0.5 text-on-surface-variant hover:text-on-surface transition-colors" data-path="fairshare" href="#"><span class="material-symbols-outlined text-[22px]">group_work</span><span class="font-label-sm text-[11px] leading-tight">FairShare</span></a><a class="min-w-[44px] min-h-[44px] flex flex-col items-center justify-center gap-0.5 text-on-surface-variant hover:text-on-surface transition-colors" data-path="tools" href="#"><span class="material-symbols-outlined text-[22px]">apps</span><span class="font-label-sm text-[11px] leading-tight">Tools</span></a></div></nav></body></html>
