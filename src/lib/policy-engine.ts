@@ -22,106 +22,111 @@ export function evaluateSpendRequest(
   }
 ): PolicyEvaluationResult {
   const violations: string[] = [];
+  const escalationReasons: string[] = [];
   let riskScore = 10; // baseline low risk
 
-  // 1. Expiry Check (Hard Block)
+  // 1. Expiry Check (Strict Hard Block)
   const isExpired = mandate.expiryDate ? new Date(mandate.expiryDate).getTime() < Date.now() : false;
   if (isExpired) {
     violations.push(`Mandate expired on ${mandate.expiryDate}. All transactions after expiry are blocked.`);
     riskScore = 100;
   }
 
-  // 2. Restricted Categories (Hard Block)
+  // 2. Restricted Categories (Strict Hard Block - Illegal / Prohibited)
   const isRestrictedCategory = mandate.restrictedCategories?.some((cat) =>
     request.category.toLowerCase().includes(cat.toLowerCase())
   ) || false;
   if (isRestrictedCategory) {
-    violations.push(`Restricted category detected: "${request.category}" violates governance mandate.`);
+    violations.push(`Restricted category detected: "${request.category}" violates compliance governance.`);
     riskScore = Math.max(riskScore, 95);
   }
 
-  // 3. Allowed / Whitelisted Merchants (Hard Block if specified and unlisted)
-  const hasWhitelist = mandate.whitelistedMerchants && mandate.whitelistedMerchants.length > 0;
-  const isWhitelistedMerchant = hasWhitelist
-    ? mandate.whitelistedMerchants.some((m) =>
-        request.merchant.toLowerCase().includes(m.toLowerCase())
-      )
-    : true;
-  if (hasWhitelist && !isWhitelistedMerchant) {
-    violations.push(`Merchant "${request.merchant}" is not in the allowed merchants list. Blocked by spend firewall.`);
-    riskScore = Math.max(riskScore, 90);
+  // 3. High-Risk Blacklisted Jurisdictions (Strict Hard Block)
+  const isHighRiskJurisdiction = request.jurisdiction && ['cyprus', 'russia', 'cayman', 'panama'].some(j =>
+    request.jurisdiction?.toLowerCase().includes(j)
+  );
+  if (isHighRiskJurisdiction) {
+    violations.push(`High-risk sanctioned jurisdiction detected (${request.jurisdiction}). Hard blocked.`);
+    riskScore = Math.max(riskScore, 95);
   }
 
-  // 4. Single Transaction Cap (Hard Block if exceeded)
-  const isOverPerTxCap = request.amount > mandate.perTxCap;
-  if (isOverPerTxCap) {
-    const percentOver = Math.round(((request.amount - mandate.perTxCap) / mandate.perTxCap) * 100);
-    violations.push(
-      `Amount ($${request.amount.toFixed(2)}) exceeds single-transaction cap of $${mandate.perTxCap.toFixed(2)} (+${percentOver}% over cap). Blocked by spend firewall.`
-    );
-    riskScore = Math.max(riskScore, 92);
-  }
-
-  // 5. Total Budget Headroom (Hard Block if exceeded)
-  const remainingBudget = mandate.monthlyCap - mandate.spentAmount;
-  const isOverBudget = request.amount > remainingBudget;
-  if (isOverBudget) {
-    violations.push(
-      `Request ($${request.amount.toFixed(2)}) exceeds available mandate budget ($${remainingBudget.toFixed(2)}). Blocked by spend firewall.`
-    );
-    riskScore = Math.max(riskScore, 90);
-  }
-
-  // 6. Suspicious Jurisdictions
-  if (request.jurisdiction && ['cyprus', 'russia', 'cayman', 'panama'].some(j => request.jurisdiction?.toLowerCase().includes(j))) {
-    violations.push(`High-risk jurisdiction detected (${request.jurisdiction}). Whitelist enforced.`);
-    riskScore = Math.max(riskScore, 85);
-  }
-
-  // Bound risk score 0 - 100
-  riskScore = Math.min(100, Math.max(0, riskScore));
-
-  // HARD BLOCK CHECK: Expired, non-allowed merchant, over per-tx cap, over budget, or restricted category
-  if (isExpired || (hasWhitelist && !isWhitelistedMerchant) || isOverPerTxCap || isOverBudget || isRestrictedCategory || riskScore >= 85) {
+  // HARD BLOCK CHECK: Expired, illegal category, or sanctioned jurisdiction
+  if (isExpired || isRestrictedCategory || isHighRiskJurisdiction) {
     return {
       decision: 'BLOCKED',
-      riskScore,
-      reason: violations[0] || 'Transaction violates mandate policy boundaries. Blocked by Spend Firewall.',
+      riskScore: Math.min(100, riskScore),
+      reason: violations[0] || 'Transaction violates strict regulatory boundaries. Hard blocked by firewall.',
       violations,
-      recommendation: 'Reject transaction immediately to prevent capital leakage.',
+      recommendation: 'Reject transaction immediately to prevent regulatory breach.',
       requiresHumanApproval: false,
       canSettleViaPayPal: false,
       settlementLatencySeconds: 0.12,
     };
   }
 
-  // REVIEW THRESHOLD CHECK: Amount above review threshold (approvalTrigger)
-  const isAboveReviewThreshold = request.amount >= mandate.approvalTrigger;
-  if (isAboveReviewThreshold || riskScore >= 40) {
-    violations.push(
-      `Amount ($${request.amount.toFixed(2)}) exceeds review threshold ($${mandate.approvalTrigger.toFixed(2)}). Escrowed for human approval.`
+  // 4. Allowed / Whitelisted Merchants Check (Escalates for Human Sign-off if unlisted)
+  const hasWhitelist = mandate.whitelistedMerchants && mandate.whitelistedMerchants.length > 0;
+  const isWhitelistedMerchant = hasWhitelist
+    ? mandate.whitelistedMerchants.some((m) =>
+        request.merchant.toLowerCase().includes(m.toLowerCase()) ||
+        m.toLowerCase().includes(request.merchant.toLowerCase())
+      )
+    : true;
+  if (hasWhitelist && !isWhitelistedMerchant) {
+    escalationReasons.push(`Merchant "${request.merchant}" is not on mandate whitelist (${mandate.whitelistedMerchants.join(', ')}).`);
+    riskScore = Math.max(riskScore, 65);
+  }
+
+  // 5. Review Threshold (approvalTrigger) Check
+  const effectiveTrigger = mandate.approvalTrigger || mandate.perTxCap;
+  if (request.amount >= effectiveTrigger) {
+    escalationReasons.push(
+      `Amount ($${request.amount.toFixed(2)}) meets or exceeds human review trigger of $${effectiveTrigger.toFixed(2)}.`
     );
+    riskScore = Math.max(riskScore, 60);
+  }
+
+  // 6. Single Transaction Cap Check
+  if (request.amount > mandate.perTxCap) {
+    const percentOver = Math.round(((request.amount - mandate.perTxCap) / mandate.perTxCap) * 100);
+    escalationReasons.push(
+      `Amount ($${request.amount.toFixed(2)}) exceeds single-tx ceiling of $${mandate.perTxCap.toFixed(2)} (+${percentOver}% over cap).`
+    );
+    riskScore = Math.max(riskScore, 70);
+  }
+
+  // 7. Total Budget Headroom Check
+  const remainingBudget = mandate.monthlyCap - mandate.spentAmount;
+  if (request.amount > remainingBudget) {
+    escalationReasons.push(
+      `Request ($${request.amount.toFixed(2)}) exceeds remaining monthly budget of $${remainingBudget.toFixed(2)}.`
+    );
+    riskScore = Math.max(riskScore, 75);
+  }
+
+  // ESCALATION CHECK: If any governance limit triggered human review
+  if (escalationReasons.length > 0) {
     return {
       decision: 'ESCALATED',
-      riskScore: Math.max(45, riskScore),
-      reason: `Transaction exceeds review threshold ($${mandate.approvalTrigger.toFixed(2)}). Escrowed for human sign-off.`,
-      violations,
-      recommendation: 'Escalate to fiduciary Approvals Queue. PayPal settlement on hold.',
+      riskScore: Math.min(84, riskScore),
+      reason: escalationReasons[0],
+      violations: escalationReasons,
+      recommendation: 'Escalated to Approvals Queue for human manager sign-off. Settlement held.',
       requiresHumanApproval: true,
       canSettleViaPayPal: false,
-      settlementLatencySeconds: 0.45,
+      settlementLatencySeconds: 0.35,
     };
   }
 
-  // AUTO-APPROVED: Inside all mandate limits
+  // AUTO-APPROVED: Clean inside all limits
   return {
     decision: 'APPROVED',
-    riskScore,
-    reason: `Within mandate limits ($${request.amount.toFixed(2)} < $${mandate.approvalTrigger.toFixed(2)} threshold) & authorized merchant.`,
+    riskScore: 10,
+    reason: `Within mandate limits ($${request.amount.toFixed(2)} < $${mandate.approvalTrigger.toFixed(2)}) & authorized merchant.`,
     violations: [],
     recommendation: 'Auto-settle instantly via PayPal Commercial Sandbox rail.',
     requiresHumanApproval: false,
     canSettleViaPayPal: true,
-    settlementLatencySeconds: 0.24,
+    settlementLatencySeconds: 0.22,
   };
 }

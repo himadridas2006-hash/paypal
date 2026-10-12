@@ -22,6 +22,7 @@ export interface AgentMandate {
 
 export interface TransactionActivity {
   id: string;
+  mandateId?: string;
   title: string;
   merchant: string;
   timestamp: string;
@@ -41,6 +42,7 @@ export interface TransactionActivity {
 
 export interface EscalatedApproval {
   id: string;
+  mandateId?: string;
   merchant: string;
   agentName: string;
   amount: number;
@@ -68,6 +70,18 @@ export interface FairShareItem {
   name: string;
   price: number;
   assignedTo: string[];
+}
+
+export interface FairShareBill {
+  id: string;
+  billNumber: string;
+  name: string;
+  date: string;
+  items: FairShareItem[];
+  total: number;
+  tax?: number;
+  tip?: number;
+  notes?: string;
 }
 
 export interface FairShareParticipant {

@@ -39,19 +39,67 @@ export default function Home() {
     setMandates((prev) => [newMandate, ...prev]);
   };
 
+  const handleManualPayMandate = (id: string, amount: number, memo?: string) => {
+    const mandate = mandates.find((m) => m.id === id);
+    if (!mandate) return;
+
+    setMandates((prev) =>
+      prev.map((m) =>
+        m.id === id ? { ...m, spentAmount: Math.min(m.monthlyCap, m.spentAmount + amount) } : m
+      )
+    );
+    setVaultBalance((prev) => Math.max(0, prev - amount));
+
+    const newTx: TransactionActivity = {
+      id: `tx-manual-${Date.now().toString().slice(-4)}`,
+      title: `${mandate.name} (Manual Early Settlement)`,
+      merchant: memo || mandate.whitelistedMerchants[0] || 'PayPal Direct Rail',
+      timestamp: 'Just now',
+      amount: amount,
+      status: 'approved',
+      agentName: mandate.name,
+      category: 'Early Settlement',
+      icon: 'payments',
+      iconBg: 'bg-surface-container-low',
+      iconColor: 'text-primary',
+      riskScore: 10,
+      badgeText: 'Manual Settle · Paid Early',
+      subText: 'via PayPal Commercial Sandbox',
+      paypalOrderId: `PAYID-MANUAL-${Math.random().toString(36).substring(2, 8).toUpperCase()}`,
+    };
+    setTransactions((prev) => [newTx, ...prev]);
+  };
+
   const handleApproveEscalation = (id: string) => {
     const esc = approvals.find((a) => a.id === id);
     if (!esc) return;
 
-    // Update approval status
     setApprovals((prev) =>
       prev.map((a) => (a.id === id ? { ...a, status: 'approved' } : a))
     );
 
-    // Deduct from vault
+    // Deduct from Vault
     setVaultBalance((prev) => Math.max(0, prev - esc.amount));
 
-    // Append to live transaction stream
+    // Update Mandate Spent Amount & Runway
+    setMandates((prev) =>
+      prev.map((m) => {
+        const isTarget =
+          (esc.mandateId && m.id === esc.mandateId) ||
+          m.name.toLowerCase() === esc.agentName.toLowerCase() ||
+          m.id.toLowerCase() === esc.agentName.toLowerCase() ||
+          (prev.length === 1);
+
+        if (isTarget) {
+          return {
+            ...m,
+            spentAmount: m.spentAmount + esc.amount,
+          };
+        }
+        return m;
+      })
+    );
+
     const newTx: TransactionActivity = {
       id: `tx-approved-${Date.now().toString().slice(-4)}`,
       title: `${esc.merchant} (Human Authorized)`,
@@ -104,6 +152,23 @@ export default function Home() {
     setTransactions((prev) => [tx, ...prev]);
     if (tx.status === 'approved') {
       setVaultBalance((prev) => Math.max(0, prev - tx.amount));
+      if (tx.agentName) {
+        setMandates((prev) =>
+          prev.map((m) => {
+            if (
+              m.name.toLowerCase() === tx.agentName!.toLowerCase() ||
+              m.id.toLowerCase() === tx.agentName!.toLowerCase() ||
+              (prev.length === 1)
+            ) {
+              return {
+                ...m,
+                spentAmount: m.spentAmount + tx.amount,
+              };
+            }
+            return m;
+          })
+        );
+      }
     }
   };
 
@@ -147,6 +212,7 @@ export default function Home() {
             mandates={mandates}
             onToggleMandateStatus={handleToggleMandateStatus}
             onAddMandate={handleAddMandate}
+            onManualPayMandate={handleManualPayMandate}
           />
         )}
 
