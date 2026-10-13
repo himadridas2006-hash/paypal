@@ -927,11 +927,12 @@ app.use((req, res) => {
 
 // ---------- Start ----------
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+const HOST = "0.0.0.0";
+app.listen(PORT, HOST, () => {
   console.log(`
 ╔══════════════════════════════════════════════╗
 ║  Mandate — Agent Finance Console             ║
-║  Server running: http://localhost:${PORT}        ║
+║  Server running on http://${HOST}:${PORT}        ║
 ║  PayPal: ${process.env.PAYPAL_CLIENT_ID ? "Sandbox credentials loaded" : "⚠ No credentials (set .env)"}   ║
 ╚══════════════════════════════════════════════╝
   `);
