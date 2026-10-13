@@ -5,6 +5,12 @@ import { AgentMandate, ToolSubTab, TransactionActivity, EscalatedApproval, Procu
 import { evaluateSpendRequest } from '@/lib/policy-engine';
 import { SAMPLE_DISPUTES, SAMPLE_PROCUREMENT_POS, SAMPLE_CFO_INVOICES } from '@/lib/mock-data';
 import { generatePayPalPaymentLink } from '@/lib/paypal';
+import { AgentPlaygroundTab } from '@/components/tools/AgentPlaygroundTab';
+import { AttackLabTab } from '@/components/tools/AttackLabTab';
+import { RedTeamScoreboardTab } from '@/components/tools/RedTeamScoreboardTab';
+import { TamperEvidentLedgerTab } from '@/components/tools/TamperEvidentLedgerTab';
+import { AgentMarketplaceTab } from '@/components/tools/AgentMarketplaceTab';
+
 
 interface ToolsViewProps {
   mandates: AgentMandate[];
@@ -378,7 +384,7 @@ export const ToolsView: React.FC<ToolsViewProps> = ({
   };
 
   return (
-    <div className="flex flex-col w-full max-w-3xl mx-auto px-gutter-mobile py-4 pb-20 space-y-space-md">
+    <div className="flex flex-col w-full max-w-7xl mx-auto px-3 sm:px-4 md:px-6 py-4 pb-28 space-y-6">
       {/* Header */}
       <div className="flex flex-col gap-1">
         <h1 className="text-2xl font-display font-bold text-on-surface">Autonomous Tool Suites</h1>
@@ -388,12 +394,17 @@ export const ToolsView: React.FC<ToolsViewProps> = ({
       </div>
 
       {/* Subtab Segment Control */}
-      <div className="flex items-center p-1 bg-surface-container-high rounded-xl gap-1 shadow-sm border border-outline-variant/20 overflow-x-auto no-scrollbar">
+      <div className="flex items-center p-1.5 bg-surface-container-high rounded-2xl gap-1.5 shadow-sm border border-outline-variant/20 overflow-x-auto no-scrollbar scrollbar-none">
         {[
-          { key: 'simulator', label: 'Spend Firewall Simulator', icon: 'shield_lock' },
-          { key: 'dispute', label: 'Dispute Resolver', icon: 'gavel' },
+          { key: 'simulator', label: 'Spend Firewall Simulator', icon: 'science' },
+          { key: 'playground', label: 'Agent Playground', icon: 'smart_toy', isNew: true },
+          { key: 'attack-lab', label: 'Attack Lab (Shield)', icon: 'shield_with_heart', isNew: true },
+          { key: 'red-team', label: 'Red-Team Scoreboard', icon: 'bug_report', isNew: true },
+          { key: 'ledger', label: 'Tamper-Evident Ledger', icon: 'verified', isNew: true },
+          { key: 'marketplace', label: 'Agent Marketplace', icon: 'storefront', isNew: true },
+          { key: 'dispute', label: 'Dispute Resolver', icon: 'balance' },
           { key: 'procurement', label: 'Procurement Agent', icon: 'inventory_2' },
-          { key: 'cfo', label: 'Freelancer CFO', icon: 'finance_mode' },
+          { key: 'cfo', label: 'Freelancer CFO', icon: 'psychology' },
         ].map((tab) => {
           const isActive = activeSubTab === tab.key;
           return (
@@ -1249,6 +1260,21 @@ export const ToolsView: React.FC<ToolsViewProps> = ({
           </div>
         </div>
       )}
-    </div>
+    
+      {/* SUBTAB: AGENT PLAYGROUND */}
+      {activeSubTab === 'playground' && <AgentPlaygroundTab mandates={mandates} />}
+
+      {/* SUBTAB: ATTACK LAB */}
+      {activeSubTab === 'attack-lab' && <AttackLabTab />}
+
+      {/* SUBTAB: RED-TEAM SCOREBOARD */}
+      {activeSubTab === 'red-team' && <RedTeamScoreboardTab mandates={mandates} />}
+
+      {/* SUBTAB: TAMPER-EVIDENT LEDGER */}
+      {activeSubTab === 'ledger' && <TamperEvidentLedgerTab />}
+
+      {/* SUBTAB: AGENT MARKETPLACE */}
+      {activeSubTab === 'marketplace' && <AgentMarketplaceTab mandates={mandates} />}
+</div>
   );
 };

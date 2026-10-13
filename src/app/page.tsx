@@ -11,6 +11,7 @@ import { ApprovalsView } from '@/components/approvals/ApprovalsView';
 import { FairShareView } from '@/components/modules/FairShareView';
 import { ToolsView } from '@/components/modules/ToolsView';
 import { InsightsRail } from '@/components/layout/InsightsRail';
+import { CommandPalette } from '@/components/common/CommandPalette';
 
 export default function Home() {
   const [currentTab, setCurrentTab] = useState<ViewTab>('command');
@@ -205,10 +206,10 @@ export default function Home() {
       />
 
       {/* Main Responsive Grid Container */}
-      <div className="flex-1 w-full max-w-[1600px] mx-auto px-3 sm:px-4 md:px-6 pt-20 pb-28">
-        <div className="flex flex-col xl:flex-row gap-6 items-start">
+      <div className="flex-1 w-full max-w-[1680px] mx-auto px-3 sm:px-4 md:px-6 pt-20 pb-28">
+        <div className="flex flex-col xl:grid xl:grid-cols-12 gap-6 items-start">
           {/* Main Primary View Area */}
-          <main className="flex-1 w-full min-w-0">
+          <main className="w-full min-w-0 xl:col-span-8 2xl:col-span-9">
             {currentTab === 'command' && (
               <CommandCenterView
                 mandates={mandates}
@@ -262,7 +263,7 @@ export default function Home() {
           </main>
 
           {/* Sticky Desktop Insights Rail (Visible on >= 1280px / xl) */}
-          <aside className="hidden xl:block w-[340px] shrink-0 sticky top-20 self-start">
+          <aside className="hidden xl:block w-full xl:col-span-4 2xl:col-span-3 sticky top-20 self-start">
             <InsightsRail
               mandates={mandates}
               transactions={transactions}
@@ -298,6 +299,19 @@ export default function Home() {
       </footer>
 
       {/* Fixed Bottom Navigation */}
+      <CommandPalette
+        onNavigateTab={setCurrentTab}
+        onNavigateTool={(tool) => {
+          setToolSubTab(tool);
+          setCurrentTab('tools');
+        }}
+        onOpenSimulator={() => {
+          setToolSubTab('simulator');
+          setCurrentTab('tools');
+        }}
+        onLoadDemoData={handleLoadDemoData}
+      />
+
       <BottomNav
         currentTab={currentTab}
         onSelectTab={setCurrentTab}

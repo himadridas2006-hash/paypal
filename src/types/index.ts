@@ -1,6 +1,6 @@
 export type ViewTab = 'command' | 'mandates' | 'approvals' | 'fairshare' | 'tools';
 
-export type ToolSubTab = 'simulator' | 'dispute' | 'procurement' | 'cfo';
+export type ToolSubTab = 'simulator' | 'playground' | 'attack-lab' | 'red-team' | 'ledger' | 'marketplace' | 'dispute' | 'procurement' | 'cfo';
 
 export interface AgentMandate {
   id: string;
