@@ -7,7 +7,11 @@
 (() => {
   "use strict";
 
-  const BASE = window.location.origin;
+  const BASE =
+    (typeof window !== "undefined" && window.__MANDATE_API_URL__) ||
+    (typeof window !== "undefined" && window.location.hostname === "localhost"
+      ? window.location.origin
+      : (typeof window !== "undefined" && window.location.origin));
   let backendOnline = false;
 
   async function request(path, options = {}) {

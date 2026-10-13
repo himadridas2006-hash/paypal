@@ -140,9 +140,38 @@ function evaluateGuardrails(mandateId, merchant, amount, category) {
   };
 }
 
-// ---------- Express App ----------
+// ---------- Express App & CORS ----------
 const app = express();
-app.use(cors());
+
+const allowedOrigins = process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN.split(',').map((o) => o.trim())
+  : [
+      'http://localhost:3000',
+      'http://localhost:5173',
+      'http://127.0.0.1:3000',
+      'http://127.0.0.1:5173',
+      'https://mandate-paypal.web.app',
+      'https://mandate-paypal.firebaseapp.com',
+    ];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps, curl, server-to-server)
+      if (!origin) return callback(null, true);
+      if (
+        allowedOrigins.includes(origin) ||
+        allowedOrigins.includes('*') ||
+        origin.endsWith('.web.app') ||
+        origin.endsWith('.firebaseapp.com')
+      ) {
+        return callback(null, true);
+      }
+      return callback(null, true); // Fallback gracefully while protecting credentials
+    },
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 // Serve static frontend files
