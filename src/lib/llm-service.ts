@@ -56,8 +56,9 @@ export interface GeminiCallResult {
 }
 
 const MODELS_FALLBACK_LIST = [
-  process.env.GEMINI_MODEL || 'gemini-2.5-flash',
+  process.env.GEMINI_MODEL || 'gemini-flash-latest',
   'gemini-flash-latest',
+  'gemini-2.5-flash',
   'gemini-1.5-flash',
 ];
 

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { AgentMandate, ToolSubTab, TransactionActivity, EscalatedApproval, ProcurementPO, ViewTab } from '@/types';
 import { evaluateSpendRequest } from '@/lib/policy-engine';
 import { SAMPLE_DISPUTES, SAMPLE_PROCUREMENT_POS, SAMPLE_CFO_INVOICES } from '@/lib/mock-data';
@@ -28,6 +28,29 @@ export const ToolsView: React.FC<ToolsViewProps> = ({
   onNavigateTab,
 }) => {
   const [activeSubTab, setActiveSubTab] = useState<ToolSubTab>(initialSubTab);
+  const tabsContainerRef = useRef<HTMLDivElement>(null);
+
+  const handleSlideTabs = (direction: 'left' | 'right') => {
+    if (tabsContainerRef.current) {
+      const scrollAmount = direction === 'left' ? -260 : 260;
+      tabsContainerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
+
+  const handleSelectTab = (key: ToolSubTab, e: React.MouseEvent<HTMLButtonElement>) => {
+    setActiveSubTab(key);
+    e.currentTarget.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  };
+
+  useEffect(() => {
+    if (tabsContainerRef.current) {
+      const activeEl = tabsContainerRef.current.querySelector('[data-tab="' + activeSubTab + '"]') as HTMLElement | null;
+      if (activeEl) {
+        activeEl.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+    }
+  }, [activeSubTab]);
+
 
   // ─────────────────────────────────────────────────────────────
   // 1. SPEND FIREWALL SIMULATOR STATE (Blank initially for user input)
@@ -393,35 +416,66 @@ export const ToolsView: React.FC<ToolsViewProps> = ({
         </p>
       </div>
 
-      {/* Subtab Segment Control */}
-      <div className="flex items-center p-1.5 bg-surface-container-high rounded-2xl gap-1.5 shadow-sm border border-outline-variant/20 overflow-x-auto no-scrollbar scrollbar-none">
-        {[
-          { key: 'simulator', label: 'Spend Firewall Simulator', icon: 'science' },
-          { key: 'playground', label: 'Agent Playground', icon: 'smart_toy', isNew: true },
-          { key: 'attack-lab', label: 'Attack Lab (Shield)', icon: 'shield_with_heart', isNew: true },
-          { key: 'red-team', label: 'Red-Team Scoreboard', icon: 'bug_report', isNew: true },
-          { key: 'ledger', label: 'Tamper-Evident Ledger', icon: 'verified', isNew: true },
-          { key: 'marketplace', label: 'Agent Marketplace', icon: 'storefront', isNew: true },
-          { key: 'dispute', label: 'Dispute Resolver', icon: 'balance' },
-          { key: 'procurement', label: 'Procurement Agent', icon: 'inventory_2' },
-          { key: 'cfo', label: 'Freelancer CFO', icon: 'psychology' },
-        ].map((tab) => {
-          const isActive = activeSubTab === tab.key;
-          return (
-            <button
-              key={tab.key}
-              onClick={() => setActiveSubTab(tab.key as any)}
-              className={`flex-1 py-2 px-3 rounded-lg text-xs font-semibold whitespace-nowrap flex items-center justify-center gap-1.5 transition-all ${
-                isActive
-                  ? 'bg-surface-container-lowest text-primary shadow-sm'
-                  : 'text-on-surface-variant hover:text-on-surface'
-              }`}
-            >
-              <span className="material-symbols-outlined text-[16px]">{tab.icon}</span>
-              <span>{tab.label}</span>
-            </button>
-          );
-        })}
+      {/* Subtab Segment Control with Sliding Buttons and Auto-Centering */}
+      <div className="relative flex items-center group w-full">
+        {/* Left Slide Arrow */}
+        <button
+          onClick={() => handleSlideTabs('left')}
+          type="button"
+          aria-label="Scroll left"
+          className="absolute -left-3 z-10 w-8 h-8 rounded-full bg-surface-container-highest/95 border border-outline-variant/50 text-on-surface shadow-md flex items-center justify-center hover:bg-surface-container-lowest hover:text-primary transition-all backdrop-blur-sm cursor-pointer"
+        >
+          <span className="material-symbols-outlined text-[18px]">chevron_left</span>
+        </button>
+
+        {/* Scrollable Subtabs Container */}
+        <div
+          ref={tabsContainerRef}
+          className="flex items-center p-1.5 px-6 bg-surface-container-high rounded-2xl gap-1.5 shadow-sm border border-outline-variant/20 overflow-x-auto scroll-smooth w-full no-scrollbar select-none"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {[
+            { key: 'simulator', label: 'Spend Firewall Simulator', icon: 'science' },
+            { key: 'playground', label: 'Agent Playground', icon: 'smart_toy', isNew: true },
+            { key: 'attack-lab', label: 'Attack Lab (Shield)', icon: 'shield_with_heart', isNew: true },
+            { key: 'red-team', label: 'Red-Team Scoreboard', icon: 'bug_report', isNew: true },
+            { key: 'ledger', label: 'Tamper-Evident Ledger', icon: 'verified', isNew: true },
+            { key: 'marketplace', label: 'Agent Marketplace', icon: 'storefront', isNew: true },
+            { key: 'dispute', label: 'Dispute Resolver', icon: 'balance' },
+            { key: 'procurement', label: 'Procurement Agent', icon: 'inventory_2' },
+            { key: 'cfo', label: 'Freelancer CFO', icon: 'psychology' },
+          ].map((tab) => {
+            const isActive = activeSubTab === tab.key;
+            return (
+              <button
+                key={tab.key}
+                data-tab={tab.key}
+                onClick={(e) => handleSelectTab(tab.key as any, e)}
+                className={`flex-shrink-0 py-2 px-3.5 rounded-lg text-xs font-semibold whitespace-nowrap flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                  isActive
+                    ? 'bg-surface-container-lowest text-primary shadow-sm ring-1 ring-primary/20'
+                    : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container/60'
+                }`}
+              >
+                <span className="material-symbols-outlined text-[16px]">{tab.icon}</span>
+                <span>{tab.label}</span>
+                {tab.isNew && (
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary/70 ml-0.5"></span>
+                )}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Right Slide Arrow */}
+        <button
+          onClick={() => handleSlideTabs('right')}
+          type="button"
+          aria-label="Scroll right"
+          className="absolute -right-3 z-10 w-8 h-8 rounded-full bg-surface-container-highest/95 border border-outline-variant/50 text-on-surface shadow-md flex items-center justify-center hover:bg-surface-container-lowest hover:text-primary transition-all backdrop-blur-sm cursor-pointer"
+        >
+          <span className="material-symbols-outlined text-[18px]">chevron_right</span>
+        </button>
       </div>
 
       {/* ─────────────────────────────────────────────────────────────
@@ -862,7 +916,9 @@ export const ToolsView: React.FC<ToolsViewProps> = ({
             </div>
           )}
         </div>
-      )}\n\n      {/* 
+      )}
+
+      {/* 
           SUBTAB 2: DISPUTE RESOLVER
       */}
       {activeSubTab === 'dispute' && (

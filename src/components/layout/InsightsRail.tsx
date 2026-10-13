@@ -247,7 +247,7 @@ export const InsightsRail: React.FC<InsightsRailProps> = ({
               <span>{testingTelegram ? 'Dispatching...' : 'Send Test Notification'}</span>
             </button>
             {telegramTestSuccess && (
-              <p className="text-[10px] font-mono text-primary truncate">{telegramTestSuccess}</p>
+              <div className="p-2.5 rounded-xl bg-primary/10 border border-primary/20 text-[11px] font-mono text-primary leading-relaxed mt-2">{telegramTestSuccess}</div>
             )}
           </div>
         )}

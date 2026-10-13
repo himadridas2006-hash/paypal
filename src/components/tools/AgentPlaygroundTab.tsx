@@ -44,7 +44,15 @@ export const AgentPlaygroundTab: React.FC<{ mandates: AgentMandate[] }> = ({ man
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  const activeMandate = mandates.find((m) => m.id === selectedMandateId) || mandates[0];
+  const fallbackDefaultMandate = {
+    id: 'default-sandbox',
+    name: 'Default Policy Rule',
+    monthlyCap: 1000,
+    perTxCap: 500,
+  };
+  const activeMandate = (mandates && mandates.length > 0)
+    ? (mandates.find((m) => m.id === selectedMandateId) || mandates[0])
+    : fallbackDefaultMandate;
 
   const handleSendMessage = async (textToSend?: string) => {
     const text = (textToSend || input).trim();
@@ -144,11 +152,17 @@ export const AgentPlaygroundTab: React.FC<{ mandates: AgentMandate[] }> = ({ man
             onChange={(e) => setSelectedMandateId(e.target.value)}
             className="px-3 py-1.5 rounded-xl bg-surface-container-low border border-outline-variant/30 text-xs text-on-surface focus:outline-none focus:ring-2 focus:ring-primary font-medium"
           >
-            {mandates.map((m) => (
-              <option key={m.id} value={m.id}>
-                {m.name} (Monthly: ${m.monthlyCap} · Per-Tx: ${m.perTxCap})
-              </option>
-            ))}
+            {(mandates && mandates.length > 0) ? (
+    mandates.map((m) => (
+      <option key={m.id} value={m.id}>
+        {m.name} (Monthly: ${m.monthlyCap} • Per-Tx: ${m.perTxCap})
+      </option>
+    ))
+  ) : (
+    <option value="default-sandbox">
+      Default Policy Rule (Monthly: $1,000 • Per-Tx: $500)
+    </option>
+  )}
           </select>
         </div>
       </div>
@@ -312,8 +326,8 @@ export const AgentPlaygroundTab: React.FC<{ mandates: AgentMandate[] }> = ({ man
           <div className="flex items-center gap-2">
             <span className="material-symbols-outlined text-secondary text-[22px]">hub</span>
             <div>
-              <h4 className="text-sm font-bold text-on-surface">Connect Your Own Agent via MCP (Claude Desktop / Cursor)</h4>
-              <p className="text-xs text-on-surface-variant">Expose the Mandate Spend Firewall directly to your local AI coding agents.</p>
+              <h4 className="text-sm font-bold text-on-surface">Connect Your AI Agent via MCP (Google Gemini CLI / Cursor / Universal MCP)</h4>
+              <p className="text-xs text-on-surface-variant">Expose the Mandate Spend Firewall directly to Google Gemini Function Calling & autonomous coding agents.</p>
             </div>
           </div>
           <button
@@ -321,12 +335,12 @@ export const AgentPlaygroundTab: React.FC<{ mandates: AgentMandate[] }> = ({ man
             className="px-3 py-1.5 rounded-xl bg-surface-container-high hover:bg-surface-container text-xs font-semibold text-on-surface border border-outline-variant/30 flex items-center gap-1.5 transition-all cursor-pointer"
           >
             <span className="material-symbols-outlined text-[14px]">content_copy</span>
-            <span>{copiedMcp ? 'Copied Config!' : 'Copy Claude Config'}</span>
+            <span>{copiedMcp ? 'Copied Config!' : 'Copy MCP Config (Gemini / Cursor)'}</span>
           </button>
         </div>
 
         <div className="p-3 rounded-xl bg-surface-container-low font-mono text-[11px] text-on-surface-variant overflow-x-auto">
-          <span className="text-primary font-bold"># Add to claude_desktop_config.json:</span>
+          <span className="text-primary font-bold"># Add to gemini_mcp_config.json or cursor_mcp.json:</span>
           <pre className="mt-1 text-on-surface">
 {`"mandate": {
   "command": "node",

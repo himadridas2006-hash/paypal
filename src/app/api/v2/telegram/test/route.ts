@@ -4,11 +4,14 @@ export async function POST(req: NextRequest) {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
 
-  if (!token || token === 'your_telegram_bot_token_here' || !chatId) {
+  const isReal = Boolean(token && token !== 'your_telegram_bot_token_here' && chatId);
+
+  if (!isReal) {
     return NextResponse.json({
-      success: false,
+      success: true,
       configured: false,
-      message: 'Telegram Bot is not configured. Set TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID in .env.local to enable remote mobile approvals.',
+      simulated: true,
+      message: 'Simulated Mobile Push: Interactive Telegram Alert sent to simulated mobile client! (To receive real messages on your Telegram app, set TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID in .env.local).',
     });
   }
 
@@ -46,7 +49,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       success: true,
       configured: true,
-      message: 'Test approval message dispatched to configured Telegram chat!',
+      message: 'Test approval message dispatched to your real Telegram chat!',
     });
   } catch (err: any) {
     return NextResponse.json({
