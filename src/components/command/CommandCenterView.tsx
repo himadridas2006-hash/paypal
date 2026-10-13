@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { TransactionActivity, ViewTab, ToolSubTab, AgentMandate } from '@/types';
+import { CommandAnalyticsPanel } from './CommandAnalyticsPanel';
 
 interface CommandCenterViewProps {
   mandates?: AgentMandate[];
@@ -96,7 +97,7 @@ export const CommandCenterView: React.FC<CommandCenterViewProps> = ({
   const blockedAmt   = blockedTxs.reduce((s, t) => s + t.amount, 0);
 
   return (
-    <div className="flex flex-col w-full max-w-3xl mx-auto px-4 pt-5 pb-24 gap-4">
+    <div className="flex flex-col w-full max-w-5xl mx-auto px-4 md:px-6 pt-5 pb-24 gap-5">
 
       {/* ─── HERO STATUS CARD ─── */}
       <div
@@ -367,6 +368,19 @@ export const CommandCenterView: React.FC<CommandCenterViewProps> = ({
           0.24s
         </div>
       </div>
+
+      {/* ─── ANALYTICS, UTILIZATION DONUT & ONBOARDING STRIP ─── */}
+      <CommandAnalyticsPanel
+        totalSpent={totalSpent}
+        totalPool={totalPool}
+        approvedCount={approvedTxs.length}
+        blockedCount={blockedTxs.length}
+        pendingCount={pendingCount}
+        sparklineHistory={[12, 18, 14, 28, 22, 35, Math.max(10, Math.round(totalSpent))]}
+        mandatesCount={mandates.length}
+        onNavigateTab={onNavigateTab}
+        onNavigateTool={onNavigateTool}
+      />
 
       {/* ─── AUTONOMOUS MODULES ─── */}
       <div className="space-y-3">

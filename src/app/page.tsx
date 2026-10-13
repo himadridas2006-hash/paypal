@@ -10,12 +10,13 @@ import { MandatesView } from '@/components/mandates/MandatesView';
 import { ApprovalsView } from '@/components/approvals/ApprovalsView';
 import { FairShareView } from '@/components/modules/FairShareView';
 import { ToolsView } from '@/components/modules/ToolsView';
+import { InsightsRail } from '@/components/layout/InsightsRail';
 
 export default function Home() {
   const [currentTab, setCurrentTab] = useState<ViewTab>('command');
   const [toolSubTab, setToolSubTab] = useState<ToolSubTab>('simulator');
   const [isSandbox, setIsSandbox] = useState(true);
-  const [vaultBalance, setVaultBalance] = useState(0.0);
+  const [vaultBalance, setVaultBalance] = useState(18450.0);
   const [currentTheme, setCurrentTheme] = useState<ThemeMode>('light');
 
   const [mandates, setMandates] = useState<AgentMandate[]>(INITIAL_MANDATES);
@@ -176,8 +177,23 @@ export default function Home() {
     setApprovals((prev) => [esc, ...prev]);
   };
 
+  // Demo Data Loader & Reset for Sandbox
+  const handleLoadDemoData = () => {
+    setMandates(INITIAL_MANDATES);
+    setTransactions(INITIAL_TRANSACTIONS);
+    setApprovals(INITIAL_APPROVALS);
+    setVaultBalance(18450.0);
+  };
+
+  const handleResetData = () => {
+    setMandates(INITIAL_MANDATES.slice(0, 1));
+    setTransactions([]);
+    setApprovals([]);
+    setVaultBalance(5000.0);
+  };
+
   return (
-    <div className={`flex flex-col min-h-screen bg-surface theme-${currentTheme} transition-colors duration-300`}>
+    <div className={`flex flex-col min-h-screen bg-surface theme-${currentTheme} transition-colors duration-300 relative selection:bg-primary/20`}>
       {/* Fixed Top Header */}
       <Header
         currentTab={currentTab}
@@ -188,53 +204,98 @@ export default function Home() {
         onSelectTheme={setCurrentTheme}
       />
 
-      {/* Main Content Area */}
-      <main className="flex-1 w-full pt-16 pb-20">
-        {currentTab === 'command' && (
-          <CommandCenterView
-            mandates={mandates}
-            transactions={transactions}
-            pendingCount={pendingApprovalsCount}
-            onNavigateTab={setCurrentTab}
-            onNavigateTool={(tool) => {
-              setToolSubTab(tool);
-              setCurrentTab('tools');
-            }}
-            onOpenSimulator={() => {
-              setToolSubTab('simulator');
-              setCurrentTab('tools');
-            }}
-          />
-        )}
+      {/* Main Responsive Grid Container */}
+      <div className="flex-1 w-full max-w-[1600px] mx-auto px-3 sm:px-4 md:px-6 pt-20 pb-28">
+        <div className="flex flex-col xl:flex-row gap-6 items-start">
+          {/* Main Primary View Area */}
+          <main className="flex-1 w-full min-w-0">
+            {currentTab === 'command' && (
+              <CommandCenterView
+                mandates={mandates}
+                transactions={transactions}
+                pendingCount={pendingApprovalsCount}
+                onNavigateTab={setCurrentTab}
+                onNavigateTool={(tool) => {
+                  setToolSubTab(tool);
+                  setCurrentTab('tools');
+                }}
+                onOpenSimulator={() => {
+                  setToolSubTab('simulator');
+                  setCurrentTab('tools');
+                }}
+              />
+            )}
 
-        {currentTab === 'mandates' && (
-          <MandatesView
-            mandates={mandates}
-            onToggleMandateStatus={handleToggleMandateStatus}
-            onAddMandate={handleAddMandate}
-            onManualPayMandate={handleManualPayMandate}
-          />
-        )}
+            {currentTab === 'mandates' && (
+              <MandatesView
+                mandates={mandates}
+                onToggleMandateStatus={handleToggleMandateStatus}
+                onAddMandate={handleAddMandate}
+                onManualPayMandate={handleManualPayMandate}
+              />
+            )}
 
-        {currentTab === 'approvals' && (
-          <ApprovalsView
-            approvals={approvals}
-            onApprove={handleApproveEscalation}
-            onDeny={handleDenyEscalation}
-          />
-        )}
+            {currentTab === 'approvals' && (
+              <ApprovalsView
+                approvals={approvals}
+                onApprove={handleApproveEscalation}
+                onDeny={handleDenyEscalation}
+                onNavigateTab={setCurrentTab}
+                onSimulateEscalation={() => {
+                  setToolSubTab('simulator');
+                  setCurrentTab('tools');
+                }}
+              />
+            )}
 
-        {currentTab === 'fairshare' && <FairShareView />}
+            {currentTab === 'fairshare' && <FairShareView />}
 
-        {currentTab === 'tools' && (
-          <ToolsView
-            mandates={mandates}
-            initialSubTab={toolSubTab}
-            onNewTransaction={handleNewTransaction}
-            onNewEscalation={handleNewEscalation}
-          />
-        )}
-      </main>
+            {currentTab === 'tools' && (
+              <ToolsView
+                mandates={mandates}
+                initialSubTab={toolSubTab}
+                onNewTransaction={handleNewTransaction}
+                onNewEscalation={handleNewEscalation}
+                onNavigateTab={setCurrentTab}
+              />
+            )}
+          </main>
+
+          {/* Sticky Desktop Insights Rail (Visible on >= 1280px / xl) */}
+          <aside className="hidden xl:block w-[340px] shrink-0 sticky top-20 self-start">
+            <InsightsRail
+              mandates={mandates}
+              transactions={transactions}
+              pendingApprovalsCount={pendingApprovalsCount}
+              onNavigateTab={setCurrentTab}
+              onNavigateTool={(tool) => {
+                setToolSubTab(tool);
+                setCurrentTab('tools');
+              }}
+              onLoadDemoData={handleLoadDemoData}
+            />
+          </aside>
+        </div>
+      </div>
+
+      {/* Global Application Footer */}
+      <footer className="w-full py-4 text-center text-xs text-on-surface-variant/80 border-t border-outline-variant/15 flex flex-wrap items-center justify-center gap-3 relative z-10 mb-16 bg-surface/80 backdrop-blur-sm">
+        <span className="font-medium">Powered by PayPal Sandbox · Mandate</span>
+        <span className="opacity-40">•</span>
+        <button
+          onClick={handleLoadDemoData}
+          className="hover:text-primary transition-colors cursor-pointer font-semibold underline text-[11px]"
+        >
+          Load Sandbox Demo Data
+        </button>
+        <span className="opacity-40">•</span>
+        <button
+          onClick={handleResetData}
+          className="hover:text-error transition-colors cursor-pointer text-[11px]"
+        >
+          Reset Demo State
+        </button>
+      </footer>
 
       {/* Fixed Bottom Navigation */}
       <BottomNav

@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { FairShareItem, FairShareParticipant, FairShareBill } from '@/types';
 import { generatePayPalPaymentLink } from '@/lib/paypal';
+import { DonutChart } from '@/components/common/DonutChart';
 
 const INITIAL_DEFAULT_PARTICIPANTS: FairShareParticipant[] = [
   { name: 'You', paypalEmail: 'you@paypal.me', shareAmount: 43.67, paidStatus: 'paid' },
@@ -574,7 +575,54 @@ export const FairShareView: React.FC = () => {
         </div>
       </div>
 
-      {/* FRIENDS MANAGER (Unified Across All Bills) */}
+            {/* Spend-by-Bill Donut Allocation Breakdown */}
+      <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-4 md:p-5 shadow-sm">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <DonutChart
+              segments={bills.map((b, i) => ({
+                label: `${b.billNumber}: ${b.name}`,
+                value: Number(b.total) || 0,
+                color: ['var(--color-primary)', 'var(--color-tertiary)', 'var(--color-secondary)', '#f59e0b', '#8b5cf6'][i % 5],
+              }))}
+              size={110}
+              strokeWidth={14}
+              centerLabel="Grand Total"
+              centerValue={`${grandTotal.toFixed(0)}`}
+            />
+            <div className="space-y-1">
+              <h4 className="text-xs md:text-sm font-bold text-on-surface flex items-center gap-1.5">
+                <span className="material-symbols-outlined text-primary text-[18px]">pie_chart</span>
+                Spend-by-Bill Allocation Breakdown
+              </h4>
+              <p className="text-[11px] text-on-surface-variant">Combined multi-bill portfolio distribution</p>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {bills.map((b, i) => (
+                  <span
+                    key={b.id}
+                    className="inline-flex items-center gap-1.5 text-[11px] text-on-surface-variant bg-surface-container-low px-2.5 py-1 rounded-lg border border-outline-variant/20"
+                  >
+                    <span
+                      className="w-2.5 h-2.5 rounded-full"
+                      style={{
+                        backgroundColor: ['var(--color-primary)', 'var(--color-tertiary)', 'var(--color-secondary)', '#f59e0b', '#8b5cf6'][i % 5],
+                      }}
+                    />
+                    <strong className="text-on-surface font-mono">{b.billNumber}</strong>: ${(Number(b.total) || 0).toFixed(2)}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="self-end sm:self-center text-right font-mono text-xs bg-surface-container-low px-3 py-2 rounded-xl border border-outline-variant/20">
+            <span className="text-on-surface-variant text-[11px] block">Sum of Shares</span>
+            <span className="text-base font-extrabold text-tertiary tabular-nums">${sumOfShares.toFixed(2)}</span>
+          </div>
+        </div>
+      </div>
+
+
+{/* FRIENDS MANAGER (Unified Across All Bills) */}
       <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-6 shadow-sm">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
           <div className="flex items-center gap-3">
@@ -965,7 +1013,61 @@ export const FairShareView: React.FC = () => {
         </div>
       </div>
 
-      {/* CONSOLIDATED MASTER SETTLEMENT CARDS */}
+            {/* Who Owes Whom: Net Settlement Matrix */}
+      <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-5 shadow-sm space-y-3">
+        <div className="flex items-center justify-between pb-2 border-b border-outline-variant/20 flex-wrap gap-2">
+          <div>
+            <h3 className="text-sm md:text-base font-bold text-on-surface flex items-center gap-2">
+              <span className="material-symbols-outlined text-primary text-[20px]">handshake</span>
+              Who Owes Whom · Net Settlement Matrix
+            </h3>
+            <p className="text-xs text-on-surface-variant mt-0.5">
+              Net balance debt simplification: automated PayPal settlement links from each friend to "You".
+            </p>
+          </div>
+          <span className="px-2.5 py-1 rounded-full bg-tertiary/15 text-tertiary text-[11px] font-bold font-mono uppercase tracking-wider border border-tertiary/30">
+            Reconciled
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+          {participants
+            .filter((p) => p.name !== 'You')
+            .map((friend) => (
+              <div
+                key={friend.name}
+                className="p-3.5 rounded-xl bg-surface-container-low border border-outline-variant/20 flex items-center justify-between"
+              >
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="w-9 h-9 rounded-full bg-secondary/15 text-secondary font-bold text-xs flex items-center justify-center uppercase shrink-0 border border-secondary/20">
+                    {friend.name.slice(0, 2)}
+                  </div>
+                  <div className="min-w-0">
+                    <div className="text-xs font-bold text-on-surface truncate">{friend.name} owes You</div>
+                    <div className="text-[10px] text-on-surface-variant font-mono truncate">{friend.paypalEmail}</div>
+                  </div>
+                </div>
+                <div className="text-right shrink-0">
+                  <div className="font-mono text-sm font-extrabold text-primary tabular-nums">
+                    ${friend.shareAmount.toFixed(2)}
+                  </div>
+                  <span
+                    className={`text-[9px] font-bold uppercase px-2 py-0.5 rounded-full inline-block mt-0.5 ${
+                      friend.paidStatus === 'paid'
+                        ? 'bg-tertiary/20 text-tertiary border border-tertiary/30'
+                        : 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/30'
+                    }`}
+                  >
+                    {friend.paidStatus}
+                  </span>
+                </div>
+              </div>
+            ))}
+        </div>
+      </div>
+
+
+{/* CONSOLIDATED MASTER SETTLEMENT CARDS */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div>

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { AgentMandate } from '@/types';
+import { TemplateCard } from '@/components/common/EmptyState';
 
 interface MandatesViewProps {
   mandates: AgentMandate[];
@@ -51,6 +52,26 @@ export const MandatesView: React.FC<MandatesViewProps> = ({
     setFormApprovalTrigger('');
     setFormMerchants('');
     setFormExpiry('');
+  };
+
+  
+  const applyTemplate = (template: {
+    name: string;
+    category: string;
+    monthlyCap: number;
+    perTxCap: number;
+    approvalTrigger: number;
+    merchants: string;
+    expiry: string;
+  }) => {
+    setFormName(template.name);
+    setFormCategory(template.category);
+    setFormMonthlyCap(template.monthlyCap);
+    setFormPerTxCap(template.perTxCap);
+    setFormApprovalTrigger(template.approvalTrigger);
+    setFormMerchants(template.merchants);
+    setFormExpiry(template.expiry);
+    setIsModalOpen(true);
   };
 
   const handleCreateMandate = (e: React.FormEvent) => {
@@ -134,7 +155,7 @@ export const MandatesView: React.FC<MandatesViewProps> = ({
   };
 
   return (
-    <div className="flex flex-col w-full max-w-3xl mx-auto px-gutter-mobile pt-4 pb-16 space-y-space-md">
+    <div className="flex flex-col w-full max-w-5xl mx-auto px-4 md:px-6 pt-5 pb-24 space-y-5">
       {/* Interactive Notification Banner */}
       <div className="bg-surface-container-high rounded-xl p-space-md shadow-sm flex items-center justify-between gap-space-sm border border-outline-variant/30">
         <div className="flex items-center gap-space-sm min-w-0">
@@ -201,18 +222,121 @@ export const MandatesView: React.FC<MandatesViewProps> = ({
       {/* Mandates Cards Stream */}
       <div className="space-y-space-md">
         {filteredMandates.length === 0 ? (
-          <div className="bg-surface-container-lowest rounded-xl p-8 text-center flex flex-col items-center justify-center space-y-2 border border-outline-variant/20">
-            <span className="material-symbols-outlined text-4xl text-on-surface-variant/60">shield_with_heart</span>
-            <p className="font-display font-bold text-on-surface text-sm">No Agent Mandates Provisioned Yet</p>
-            <p className="text-xs text-on-surface-variant max-w-sm">
-              Create your first autonomous spending mandate with custom monthly caps, per-transaction ceilings, and merchant whitelists.
-            </p>
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="mt-2 px-4 py-2 rounded-xl bg-primary text-on-primary text-xs font-semibold hover:bg-primary-container shadow transition-all"
-            >
-              + Provision First Mandate
-            </button>
+          <div className="space-y-4">
+            <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-6 text-center space-y-3 shadow-sm">
+              <div className="w-12 h-12 rounded-2xl bg-primary/10 border border-primary/20 text-primary mx-auto flex items-center justify-center">
+                <span className="material-symbols-outlined text-2xl">shield_with_heart</span>
+              </div>
+              <h3 className="font-display font-bold text-base md:text-lg text-on-surface">
+                No Agent Mandates Provisioned Yet
+              </h3>
+              <p className="text-xs md:text-sm text-on-surface-variant max-w-md mx-auto leading-relaxed">
+                Choose a pre-configured template below to immediately prefill your mandate guardrails, or create a completely custom autonomous spending limit.
+              </p>
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="mt-1 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary hover:bg-primary/90 text-on-primary text-xs font-semibold shadow-sm transition-all active:scale-95"
+              >
+                <span className="material-symbols-outlined text-[16px]">add</span>
+                <span>+ Custom Agent Mandate</span>
+              </button>
+            </div>
+
+            {/* Template Cards Strip */}
+            <div>
+              <div className="flex items-center justify-between mb-2.5 px-1">
+                <span className="text-xs font-bold uppercase tracking-wider text-on-surface">
+                  1-Click Ready Templates
+                </span>
+                <span className="text-[11px] text-on-surface-variant">Auto-Prefill</span>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <TemplateCard
+                  title="Cloud Compute Agent"
+                  tag="INFRA-DEV"
+                  icon="memory"
+                  monthlyCap={1200}
+                  perTxCap={350}
+                  merchants={['RunPod', 'AWS', 'Lambda Labs']}
+                  description="Pre-authorized for automated model training, cloud instances, and GPU clusters."
+                  onApply={() =>
+                    applyTemplate({
+                      name: 'Cloud Compute Agent',
+                      category: 'Hardware & Infrastructure',
+                      monthlyCap: 1200,
+                      perTxCap: 350,
+                      approvalTrigger: 200,
+                      merchants: 'RunPod, AWS, Lambda Labs, Google Cloud',
+                      expiry: '2026-12-31',
+                    })
+                  }
+                />
+
+                <TemplateCard
+                  title="Dev Tools Agent"
+                  tag="DEV-OPS"
+                  icon="terminal"
+                  monthlyCap={600}
+                  perTxCap={150}
+                  merchants={['GitHub Copilot', 'Vercel', 'OpenAI']}
+                  description="Autonomous subscription renewals for CI/CD, LLM APIs, and developer toolkits."
+                  onApply={() =>
+                    applyTemplate({
+                      name: 'Dev Tools Agent',
+                      category: 'Software & Subscriptions',
+                      monthlyCap: 600,
+                      perTxCap: 150,
+                      approvalTrigger: 100,
+                      merchants: 'GitHub Copilot, Vercel, OpenAI, Supabase',
+                      expiry: '2026-12-31',
+                    })
+                  }
+                />
+
+                <TemplateCard
+                  title="Marketing Agent"
+                  tag="GROWTH"
+                  icon="campaign"
+                  monthlyCap={800}
+                  perTxCap={250}
+                  merchants={['Google Ads', 'Meta', 'Canva']}
+                  description="Ad campaign budget allocations with strict transaction thresholds and spend cap limits."
+                  onApply={() =>
+                    applyTemplate({
+                      name: 'Marketing Agent',
+                      category: 'Advertising & Marketing',
+                      monthlyCap: 800,
+                      perTxCap: 250,
+                      approvalTrigger: 150,
+                      merchants: 'Google Ads, Meta, Canva, X Ads',
+                      expiry: '2026-12-31',
+                    })
+                  }
+                />
+              </div>
+            </div>
+
+            {/* Field Explainer Card */}
+            <div className="bg-surface-container-low border border-outline-variant/20 rounded-2xl p-4 text-xs space-y-2">
+              <span className="font-bold text-on-surface uppercase tracking-wider text-[11px] block">
+                How Mandate Guardrails Work
+              </span>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-on-surface-variant">
+                <div>
+                  <strong className="text-on-surface block font-mono text-[11px]">Monthly Cap ($)</strong>
+                  Total cumulative ceiling an agent can spend per calendar cycle. Hard block at 100%.
+                </div>
+                <div>
+                  <strong className="text-on-surface block font-mono text-[11px]">Per-Tx Cap & Review</strong>
+                  Single charge limit. Any spend exceeding the review trigger is held for human approval.
+                </div>
+                <div>
+                  <strong className="text-on-surface block font-mono text-[11px]">Merchant Whitelist</strong>
+                  Comma-separated approved domains. Charges outside this list are rejected immediately.
+                </div>
+              </div>
+            </div>
           </div>
         ) : (
           filteredMandates.map((mandate) => {

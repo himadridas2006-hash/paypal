@@ -417,109 +417,363 @@ export const ToolsView: React.FC<ToolsViewProps> = ({
           SUBTAB 1: POLICY SIMULATOR
       ───────────────────────────────────────────────────────────── */}
       {activeSubTab === 'simulator' && (
-        <div className="space-y-4">
-          <div className="bg-surface-container-lowest rounded-xl p-space-md shadow-sm border border-outline-variant/20 space-y-3">
-            <div className="flex items-center justify-between pb-2 border-b border-surface-container-low">
-              <span className="text-xs font-bold text-on-surface uppercase tracking-wide">
-                Live Transaction Simulation
+        <div className="space-y-6 animate-in fade-in duration-200">
+          {/* Preset Quick Scenario Chips */}
+          <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-4 shadow-sm space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold text-on-surface uppercase tracking-wider flex items-center gap-1.5">
+                <span className="material-symbols-outlined text-primary text-[16px]">bolt</span>
+                Pre-Configured Policy Scenarios
               </span>
-              <span className="text-[11px] text-primary font-semibold">Autonomous Guardrail Gate</span>
+              <span className="text-[11px] text-on-surface-variant font-mono">Click to test instant firewall checks</span>
             </div>
-
-            <form onSubmit={handleSimulateSpend} className="space-y-3">
-              <div>
-                <label className="text-xs font-semibold text-on-surface block mb-1">Select Agent Mandate</label>
-                <select
-                  value={selectedMandateId}
-                  onChange={(e) => setSelectedMandateId(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg bg-surface-container-low border border-outline-variant/30 text-xs text-on-surface focus:outline-none focus:ring-2 focus:ring-primary"
-                >
-                  {mandates.length === 0 ? (
-                    <option value="">Default Policy Rule (Cap: $500.00)</option>
-                  ) : (
-                    mandates.map((m) => (
-                      <option key={m.id} value={m.id}>
-                        {m.name} (Cap: ${m.monthlyCap}, Per-Tx: ${m.perTxCap}, Review: ${m.approvalTrigger})
-                      </option>
-                    ))
-                  )}
-                </select>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="text-xs font-semibold text-on-surface block mb-1">Merchant Name</label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="e.g. GitHub Copilot, AWS, RunPod..."
-                    value={simMerchant}
-                    onChange={(e) => setSimMerchant(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg bg-surface-container-low border border-outline-variant/30 text-xs text-on-surface focus:outline-none focus:ring-2 focus:ring-primary"
-                  />
-                </div>
-                <div>
-                  <label className="text-xs font-semibold text-on-surface block mb-1">Amount ($ USD)</label>
-                  <input
-                    type="number"
-                    step="0.01"
-                    min="1"
-                    required
-                    placeholder="0.00"
-                    value={simAmount}
-                    onChange={(e) => setSimAmount(e.target.value === '' ? '' : Number(e.target.value))}
-                    className="w-full px-3 py-2 rounded-lg bg-surface-container-low border border-outline-variant/30 text-xs text-on-surface focus:outline-none focus:ring-2 focus:ring-primary font-mono text-right"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="text-xs font-semibold text-on-surface block mb-1">Spend Category</label>
-                  <input
-                    type="text"
-                    value={simCategory}
-                    onChange={(e) => setSimCategory(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg bg-surface-container-low border border-outline-variant/30 text-xs text-on-surface focus:outline-none focus:ring-2 focus:ring-primary"
-                    placeholder="e.g. Hardware & Infrastructure, Gambling..."
-                  />
-                </div>
-                <div>
-                  <label className="text-xs font-semibold text-on-surface block mb-1">Merchant Jurisdiction</label>
-                  <input
-                    type="text"
-                    value={simJurisdiction}
-                    onChange={(e) => setSimJurisdiction(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg bg-surface-container-low border border-outline-variant/30 text-xs text-on-surface focus:outline-none focus:ring-2 focus:ring-primary"
-                    placeholder="e.g. US, UK, Cyprus..."
-                  />
-                </div>
-              </div>
+            <div className="flex items-center gap-2 flex-wrap pt-1">
+              <button
+                type="button"
+                onClick={() => {
+                  setSimMerchant('RunPod');
+                  setSimAmount(450);
+                  setSimCategory('Cloud Infrastructure');
+                  setSimJurisdiction('US');
+                }}
+                className="px-3 py-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container border border-outline-variant/30 text-xs font-semibold text-on-surface flex items-center gap-1.5 transition-all hover:scale-[1.02] cursor-pointer"
+              >
+                <span className="w-2 h-2 rounded-full bg-amber-500"></span>
+                <span>RunPod GPU Cluster ($450)</span>
+                <span className="text-[10px] text-amber-600 dark:text-amber-400 font-bold uppercase ml-1">Escalates</span>
+              </button>
 
               <button
-                type="submit"
-                disabled={isSimulating}
-                className="w-full py-2.5 rounded-lg bg-primary text-on-primary text-xs font-semibold flex items-center justify-center gap-1.5 shadow active:scale-[0.99] hover:bg-primary-container transition-all"
+                type="button"
+                onClick={() => {
+                  setSimMerchant('AWS');
+                  setSimAmount(90);
+                  setSimCategory('Cloud Infrastructure');
+                  setSimJurisdiction('US');
+                }}
+                className="px-3 py-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container border border-outline-variant/30 text-xs font-semibold text-on-surface flex items-center gap-1.5 transition-all hover:scale-[1.02] cursor-pointer"
               >
-                {isSimulating ? (
-                  <>
-                    <span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                    <span>Evaluating Spend & Connecting PayPal Rail...</span>
-                  </>
-                ) : (
-                  <>
-                    <span className="material-symbols-outlined text-[16px]">verified</span>
-                    <span>Evaluate Spend Against Firewall</span>
-                  </>
-                )}
+                <span className="w-2 h-2 rounded-full bg-tertiary"></span>
+                <span>AWS Cloud Backup ($90)</span>
+                <span className="text-[10px] text-tertiary font-bold uppercase ml-1">Auto-Clears</span>
               </button>
-            </form>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setSimMerchant('Global Casino Ltd');
+                  setSimAmount(200);
+                  setSimCategory('Gambling & Wagering');
+                  setSimJurisdiction('Cyprus');
+                }}
+                className="px-3 py-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container border border-outline-variant/30 text-xs font-semibold text-on-surface flex items-center gap-1.5 transition-all hover:scale-[1.02] cursor-pointer"
+              >
+                <span className="w-2 h-2 rounded-full bg-error"></span>
+                <span>Offshore Gambling ($200)</span>
+                <span className="text-[10px] text-error font-bold uppercase ml-1">Blocks (0 Leak)</span>
+              </button>
+            </div>
           </div>
 
-          {/* Detailed Decision Card */}
+          {/* Responsive Layout: Form on Left, Live Decision Preview on Right */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+            {/* Form Column */}
+            <div className="lg:col-span-7 bg-surface-container-lowest rounded-2xl p-5 md:p-6 shadow-sm border border-outline-variant/30 space-y-4">
+              <div className="flex items-center justify-between pb-3 border-b border-surface-container-low">
+                <div>
+                  <h3 className="text-sm md:text-base font-display font-bold text-on-surface">
+                    Live Transaction Simulation
+                  </h3>
+                  <p className="text-xs text-on-surface-variant mt-0.5">
+                    Evaluate real-time agent payment requests against active PayPal mandate guardrails.
+                  </p>
+                </div>
+                <span className="text-[11px] px-2.5 py-1 rounded-full bg-primary/10 text-primary font-bold font-mono border border-primary/20">
+                  Firewall Gate
+                </span>
+              </div>
+
+              <form onSubmit={handleSimulateSpend} className="space-y-4">
+                <div>
+                  <label className="text-xs font-semibold text-on-surface block mb-1">
+                    Select Target Agent Mandate
+                  </label>
+                  <select
+                    value={selectedMandateId}
+                    onChange={(e) => setSelectedMandateId(e.target.value)}
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-surface-container-low border border-outline-variant/30 text-xs text-on-surface focus:outline-none focus:ring-2 focus:ring-primary"
+                  >
+                    {mandates.length === 0 ? (
+                      <option value="">Default Policy Rule (Monthly: $1,000 · Single-Tx: $500)</option>
+                    ) : (
+                      mandates.map((m) => (
+                        <option key={m.id} value={m.id}>
+                          {m.name} (Monthly: ${m.monthlyCap} · Spent: ${m.spentAmount} · Per-Tx: ${m.perTxCap})
+                        </option>
+                      ))
+                    )}
+                  </select>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                  <div>
+                    <label className="text-xs font-semibold text-on-surface block mb-1">Merchant Payee Name</label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. GitHub Copilot, AWS, RunPod..."
+                      value={simMerchant}
+                      onChange={(e) => setSimMerchant(e.target.value)}
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-surface-container-low border border-outline-variant/30 text-xs text-on-surface focus:outline-none focus:ring-2 focus:ring-primary"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs font-semibold text-on-surface block mb-1">Amount ($ USD)</label>
+                    <input
+                      type="number"
+                      step="0.01"
+                      min="1"
+                      required
+                      placeholder="0.00"
+                      value={simAmount}
+                      onChange={(e) => setSimAmount(e.target.value === '' ? '' : Number(e.target.value))}
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-surface-container-low border border-outline-variant/30 text-xs text-on-surface focus:outline-none focus:ring-2 focus:ring-primary font-mono text-right"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                  <div>
+                    <label className="text-xs font-semibold text-on-surface block mb-1">Spend Category</label>
+                    <input
+                      type="text"
+                      value={simCategory}
+                      onChange={(e) => setSimCategory(e.target.value)}
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-surface-container-low border border-outline-variant/30 text-xs text-on-surface focus:outline-none focus:ring-2 focus:ring-primary"
+                      placeholder="e.g. Cloud Infrastructure, Gambling..."
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs font-semibold text-on-surface block mb-1">Merchant Jurisdiction</label>
+                    <input
+                      type="text"
+                      value={simJurisdiction}
+                      onChange={(e) => setSimJurisdiction(e.target.value)}
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-surface-container-low border border-outline-variant/30 text-xs text-on-surface focus:outline-none focus:ring-2 focus:ring-primary"
+                      placeholder="e.g. US, UK, Cyprus..."
+                    />
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isSimulating}
+                  className="w-full py-3 rounded-xl bg-primary text-on-primary text-xs font-bold flex items-center justify-center gap-2 shadow-md active:scale-[0.99] hover:bg-primary-container transition-all cursor-pointer"
+                >
+                  {isSimulating ? (
+                    <>
+                      <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      <span>Evaluating Spend &amp; Connecting PayPal Rail...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span className="material-symbols-outlined text-[18px]">verified</span>
+                      <span>Execute Spend Evaluation</span>
+                    </>
+                  )}
+                </button>
+              </form>
+            </div>
+
+            {/* Live Decision Preview Panel */}
+            <div className="lg:col-span-5 bg-surface-container-lowest rounded-2xl p-5 md:p-6 shadow-sm border border-outline-variant/30 space-y-4">
+              {(() => {
+                const targetMandate = mandates.find((m) => m.id === selectedMandateId) || mandates[0] || {
+                  monthlyCap: 1000,
+                  spentAmount: 0,
+                  perTxCap: 500,
+                  approvalTrigger: 300,
+                  whitelistedMerchants: ['GitHub', 'AWS', 'OpenAI', 'RunPod'],
+                  restrictedCategories: ['Gambling', 'Adult Services', 'Crypto'],
+                };
+
+                const amountNum = Number(simAmount) || 0;
+                const merchantClean = (simMerchant || '').trim();
+                const categoryClean = (simCategory || 'Cloud Infrastructure').trim();
+                const jurisdictionClean = (simJurisdiction || 'US').trim().toUpperCase();
+
+                const isWhitelisted = merchantClean ? targetMandate.whitelistedMerchants.some((w: string) => w.toLowerCase() === merchantClean.toLowerCase()) : null;
+                const isWithinPerTx = amountNum > 0 ? amountNum <= targetMandate.perTxCap : null;
+                const remainingRunway = Math.max(0, targetMandate.monthlyCap - targetMandate.spentAmount);
+                const isWithinBudget = amountNum > 0 ? amountNum <= remainingRunway : null;
+                const isRestrictedCat = targetMandate.restrictedCategories.some((r: string) => categoryClean.toLowerCase().includes(r.toLowerCase()));
+                const isOffshore = jurisdictionClean && !['US', 'CA', 'UK', 'EU', 'DE', 'FR'].includes(jurisdictionClean);
+
+                let previewDecision: 'APPROVED' | 'ESCALATED' | 'BLOCKED' = 'APPROVED';
+                let calculatedScore = 15;
+
+                if (isRestrictedCat || jurisdictionClean === 'CYPRUS') {
+                  previewDecision = 'BLOCKED';
+                  calculatedScore = 95;
+                } else if (isWithinPerTx === false || isWithinBudget === false || amountNum >= targetMandate.approvalTrigger) {
+                  previewDecision = 'ESCALATED';
+                  calculatedScore = isWithinPerTx === false ? 65 : 45;
+                } else if (isWhitelisted === false && merchantClean) {
+                  previewDecision = 'ESCALATED';
+                  calculatedScore = 55;
+                }
+
+                return (
+                  <>
+                    <div className="flex items-center justify-between pb-3 border-b border-surface-container-low">
+                      <div>
+                        <span className="text-xs font-bold text-on-surface uppercase tracking-wider block">
+                          Real-Time Decision Preview
+                        </span>
+                        <span className="text-[11px] text-on-surface-variant font-medium">
+                          Policy checks live-synced to inputs
+                        </span>
+                      </div>
+                      <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold font-mono uppercase tracking-wider ${
+                        previewDecision === 'APPROVED'
+                          ? 'bg-tertiary/15 text-tertiary border border-tertiary/30'
+                          : previewDecision === 'ESCALATED'
+                          ? 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/30'
+                          : 'bg-error-container text-on-error-container border border-error/30'
+                      }`}>
+                        {previewDecision}
+                      </span>
+                    </div>
+
+                    {/* Policy Criteria Checks */}
+                    <div className="space-y-2 text-xs">
+                      {/* Check 1: Allowlist */}
+                      <div className="p-2.5 rounded-xl bg-surface-container-low flex items-center justify-between border border-outline-variant/15">
+                        <span className="text-on-surface-variant flex items-center gap-1.5">
+                          <span className="material-symbols-outlined text-[15px]">checklist</span>
+                          Merchant Allowlist
+                        </span>
+                        <span className="font-semibold">
+                          {!merchantClean ? (
+                            <span className="text-on-surface-variant/60">Awaiting input</span>
+                          ) : isWhitelisted ? (
+                            <span className="text-tertiary font-bold flex items-center gap-1">
+                              <span className="material-symbols-outlined text-[14px]">check</span> Whitelisted
+                            </span>
+                          ) : (
+                            <span className="text-amber-600 dark:text-amber-400 font-bold flex items-center gap-1">
+                              <span className="material-symbols-outlined text-[14px]">warning</span> Unlisted Vendor
+                            </span>
+                          )}
+                        </span>
+                      </div>
+
+                      {/* Check 2: Single-Tx Cap */}
+                      <div className="p-2.5 rounded-xl bg-surface-container-low flex items-center justify-between border border-outline-variant/15">
+                        <span className="text-on-surface-variant flex items-center gap-1.5">
+                          <span className="material-symbols-outlined text-[15px]">speed</span>
+                          Single-Tx Limit (${targetMandate.perTxCap})
+                        </span>
+                        <span className="font-semibold">
+                          {amountNum <= 0 ? (
+                            <span className="text-on-surface-variant/60">Awaiting amount</span>
+                          ) : isWithinPerTx ? (
+                            <span className="text-tertiary font-bold flex items-center gap-1">
+                              <span className="material-symbols-outlined text-[14px]">check</span> In Cap (${amountNum})
+                            </span>
+                          ) : (
+                            <span className="text-amber-600 dark:text-amber-400 font-bold flex items-center gap-1">
+                              <span className="material-symbols-outlined text-[14px]">error</span> Exceeded (+${(amountNum - targetMandate.perTxCap).toFixed(0)})
+                            </span>
+                          )}
+                        </span>
+                      </div>
+
+                      {/* Check 3: Monthly Budget Runway */}
+                      <div className="p-2.5 rounded-xl bg-surface-container-low flex items-center justify-between border border-outline-variant/15">
+                        <span className="text-on-surface-variant flex items-center gap-1.5">
+                          <span className="material-symbols-outlined text-[15px]">account_balance_wallet</span>
+                          Monthly Runway
+                        </span>
+                        <span className="font-semibold">
+                          {amountNum <= 0 ? (
+                            <span className="text-on-surface-variant/60 font-mono">${remainingRunway.toFixed(0)} left</span>
+                          ) : isWithinBudget ? (
+                            <span className="text-tertiary font-bold flex items-center gap-1">
+                              <span className="material-symbols-outlined text-[14px]">check</span> ${(remainingRunway - amountNum).toFixed(0)} remains
+                            </span>
+                          ) : (
+                            <span className="text-error font-bold flex items-center gap-1">
+                              <span className="material-symbols-outlined text-[14px]">block</span> Budget Overrun
+                            </span>
+                          )}
+                        </span>
+                      </div>
+
+                      {/* Check 4: Category Restriction */}
+                      <div className="p-2.5 rounded-xl bg-surface-container-low flex items-center justify-between border border-outline-variant/15">
+                        <span className="text-on-surface-variant flex items-center gap-1.5">
+                          <span className="material-symbols-outlined text-[15px]">category</span>
+                          Category Filter
+                        </span>
+                        <span className="font-semibold">
+                          {isRestrictedCat ? (
+                            <span className="text-error font-bold flex items-center gap-1">
+                              <span className="material-symbols-outlined text-[14px]">cancel</span> Restricted
+                            </span>
+                          ) : (
+                            <span className="text-tertiary font-bold flex items-center gap-1">
+                              <span className="material-symbols-outlined text-[14px]">check</span> Permitted
+                            </span>
+                          )}
+                        </span>
+                      </div>
+
+                      {/* Check 5: Jurisdiction */}
+                      <div className="p-2.5 rounded-xl bg-surface-container-low flex items-center justify-between border border-outline-variant/15">
+                        <span className="text-on-surface-variant flex items-center gap-1.5">
+                          <span className="material-symbols-outlined text-[15px]">public</span>
+                          Jurisdiction KYB
+                        </span>
+                        <span className="font-semibold">
+                          {isOffshore ? (
+                            <span className="text-amber-600 dark:text-amber-400 font-bold flex items-center gap-1">
+                              <span className="material-symbols-outlined text-[14px]">report</span> Offshore Risk
+                            </span>
+                          ) : (
+                            <span className="text-tertiary font-bold flex items-center gap-1">
+                              <span className="material-symbols-outlined text-[14px]">check</span> Approved Zone
+                            </span>
+                          )}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Real-time Risk Score Meter */}
+                    <div className="pt-2 border-t border-surface-container-low space-y-1.5">
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="text-on-surface-variant font-semibold">Projected Risk Index</span>
+                        <span className="font-mono font-bold text-on-surface">{calculatedScore}/100</span>
+                      </div>
+                      <div className="w-full h-2 rounded-full bg-surface-container-high overflow-hidden">
+                        <div
+                          className={`h-full rounded-full transition-all duration-300 ${
+                            calculatedScore >= 80 ? 'bg-error' : calculatedScore >= 40 ? 'bg-amber-500' : 'bg-tertiary'
+                          }`}
+                          style={{ width: calculatedScore + '%' }}
+                        />
+                      </div>
+                    </div>
+                  </>
+                );
+              })()}
+            </div>
+          </div>
+
+          {/* Detailed Decision Card (Post-Execution Result) */}
           {evaluationResult && (
             <div
-              className={`p-4 rounded-xl border shadow-sm transition-all ${
+              className={`p-5 rounded-2xl border shadow-sm transition-all ${
                 evaluationResult.decision === 'APPROVED'
                   ? 'bg-tertiary-container/15 border-tertiary/40'
                   : evaluationResult.decision === 'ESCALATED'
@@ -527,10 +781,10 @@ export const ToolsView: React.FC<ToolsViewProps> = ({
                   : 'bg-error-container/20 border-error/40'
               }`}
             >
-              <div className="flex items-center justify-between pb-2 border-b border-outline-variant/20">
-                <div className="flex items-center gap-2">
+              <div className="flex items-center justify-between pb-3 border-b border-outline-variant/20">
+                <div className="flex items-center gap-2.5">
                   <span
-                    className={`w-3 h-3 rounded-full ${
+                    className={`w-3.5 h-3.5 rounded-full ${
                       evaluationResult.decision === 'APPROVED'
                         ? 'bg-tertiary'
                         : evaluationResult.decision === 'ESCALATED'
@@ -538,23 +792,23 @@ export const ToolsView: React.FC<ToolsViewProps> = ({
                         : 'bg-error'
                     }`}
                   />
-                  <span className="font-display font-bold text-sm text-on-surface">
-                    Decision: {evaluationResult.decision}
+                  <span className="font-display font-extrabold text-base text-on-surface">
+                    Executed Decision: {evaluationResult.decision}
                   </span>
                 </div>
-                <span className="text-xs font-bold font-mono px-2 py-0.5 rounded-full bg-surface-container">
+                <span className="text-xs font-bold font-mono px-3 py-1 rounded-full bg-surface-container">
                   Risk Score: {evaluationResult.riskScore}/100
                 </span>
               </div>
 
-              <div className="pt-2 text-xs space-y-2">
+              <div className="pt-3 text-xs space-y-3">
                 <p className="font-semibold text-on-surface text-sm">{evaluationResult.reason}</p>
                 
                 {/* Full Breakdown of Violations / Guardrail Breaches */}
                 {evaluationResult.violations && evaluationResult.violations.length > 0 && (
-                  <div className="p-3 rounded-lg bg-surface-container-low/80 border border-outline-variant/20 space-y-1.5">
+                  <div className="p-3.5 rounded-xl bg-surface-container-low/80 border border-outline-variant/20 space-y-1.5">
                     <span className="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant block">
-                      Policy Violations & Guardrail Triggers:
+                      Policy Violations &amp; Guardrail Triggers:
                     </span>
                     <ul className="list-disc list-inside text-on-surface space-y-1 text-xs">
                       {evaluationResult.violations.map((v: string, i: number) => (
@@ -569,7 +823,7 @@ export const ToolsView: React.FC<ToolsViewProps> = ({
                   <span className="font-mono">Rail Latency: {evaluationResult.settlementLatencySeconds}s</span>
                 </div>
 
-                {/* BOLD EYE-CATCHING PROMINENT APPROVALS CALLOUT BANNER */}
+                {/* BOLD APPROVALS CALLOUT BANNER */}
                 {evaluationResult.decision === 'ESCALATED' && (
                   <div className="mt-3 p-4 rounded-xl bg-gradient-to-r from-amber-500/20 via-amber-400/15 to-amber-500/20 border-2 border-amber-500 shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div className="flex items-center gap-3">
@@ -586,7 +840,7 @@ export const ToolsView: React.FC<ToolsViewProps> = ({
                     <button
                       type="button"
                       onClick={() => onNavigateTab && onNavigateTab('approvals')}
-                      className="px-4 py-2.5 rounded-lg bg-amber-600 hover:bg-amber-700 active:scale-95 text-white font-black text-xs shadow-md transition-all flex items-center justify-center gap-1.5 whitespace-nowrap self-stretch sm:self-auto cursor-pointer"
+                      className="px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 active:scale-95 text-white font-black text-xs shadow-md transition-all flex items-center justify-center gap-1.5 whitespace-nowrap self-stretch sm:self-auto cursor-pointer"
                     >
                       <span>GO TO APPROVALS PAGE</span>
                       <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
@@ -597,9 +851,7 @@ export const ToolsView: React.FC<ToolsViewProps> = ({
             </div>
           )}
         </div>
-      )}
-
-      {/* 
+      )}\n\n      {/* 
           SUBTAB 2: DISPUTE RESOLVER
       */}
       {activeSubTab === 'dispute' && (
